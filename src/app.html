@@ -211,6 +211,24 @@ footer { margin-top: 44px; color: var(--muted); font-size: 0.9rem; display: grid
 .dry { border: 2.5px dashed var(--line); border-radius: 18px; padding: 14px 16px; display: grid; gap: 8px; background: var(--bg-2); }
 .science { background: color-mix(in srgb, var(--sky) 14%, white); border: 2.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: grid; gap: 6px; }
 .science strong { font-family: var(--font-display); font-size: 1.15rem; }
+.badges { display: grid; gap: 10px; border-top: 2px dashed var(--soft-line); padding-top: 12px; }
+.badge-msg { margin: 0; }
+.badge-more summary { cursor: pointer; font-weight: 800; color: var(--sky); margin-bottom: 8px; }
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; border: 2.5px dashed var(--soft-line); border-radius: 999px; padding: 4px 12px 4px 6px; font-size: 14px; font-weight: 800; color: var(--muted); background: transparent; }
+.badge .emo { font-size: 20px; filter: grayscale(1); opacity: .45; }
+.badge .bp { font-weight: 700; font-size: 12px; opacity: .8; }
+.badge.on { border: 2.5px solid var(--line); background: var(--paper); color: var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+.badge.on .emo { filter: none; opacity: 1; }
+.badge-pop { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; background: rgb(35 38 75 / .45); padding: 16px; }
+.badge-card { position: relative; overflow: hidden; max-width: 380px; width: 100%; text-align: center; background: var(--paper); border: 3px solid var(--line); border-radius: var(--r); box-shadow: var(--pop); padding: 26px 20px 22px; animation: pop .45s cubic-bezier(.2, 1.6, .4, 1); }
+.big-badge { display: grid; justify-items: center; gap: 4px; margin: 6px 0 10px; }
+.big-badge .emo { font-size: 64px; line-height: 1; }
+.big-badge strong { font-family: var(--font-display); font-size: 1.5rem; }
+.cf { position: absolute; top: -12px; left: var(--x); width: 9px; height: 14px; background: var(--c); border-radius: 2px; animation: fall 1.6s var(--d) ease-in forwards; }
+@keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fall { to { transform: translateY(460px) rotate(540deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .badge-card, .cf { animation: none; } .cf { display: none; } }
 .done-box { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: color-mix(in srgb, var(--leaf) 18%, white); border: 3px solid var(--line); border-radius: 18px; padding: 14px 16px; }
 .done-box strong { font-family: var(--font-display); font-size: 1.25rem; }
 
@@ -3081,6 +3099,75 @@ function toggleDone(id) {
   store.set("faits", f.includes(id) ? f.filter(x => x !== id) : [...f, id]);
 }
 
+/* ---------- Badges : paliers de tampons et badges à thème ----------
+   Calculés à partir du carnet ; un badge nouvellement gagné est fêté une seule fois (mémoire « badgesVus »). */
+const CAT_OF = id => (ACTIVITIES.find(a => a.id === id) || {}).categorie;
+const BADGES = [
+  { id: "p1", emoji: "🌱", nom: "Premier tampon", seuil: 1 },
+  { id: "p3", emoji: "✂️", nom: "Mains agiles", seuil: 3 },
+  { id: "p5", emoji: "🖐️", nom: "Artiste en herbe", seuil: 5 },
+  { id: "p10", emoji: "⭐", nom: "Étoile de l'atelier", seuil: 10 },
+  { id: "p15", emoji: "📦", nom: "As du carton", seuil: 15 },
+  { id: "p20", emoji: "🏅", nom: "Génie du bricolage", seuil: 20 },
+  { id: "p30", emoji: "🏆", nom: "Trésor de l'atelier", seuil: 30 },
+  { id: "pall", emoji: "👑", nom: "Légende Fabrikolo", seuil: () => ACTIVITIES.length },
+  { id: "halloween", emoji: "👻", nom: "Pro d'Halloween", theme: true, besoin: 3, compte: f => f.filter(id => HALLOWEEN_IDS.includes(id)).length },
+  { id: "noel", emoji: "🎄", nom: "Pro de Noël", theme: true, besoin: 3, compte: f => f.filter(id => NOEL_IDS.includes(id)).length },
+  { id: "paques", emoji: "🐰", nom: "Pro de Pâques", theme: true, besoin: 3, compte: f => f.filter(id => PAQUES_IDS.includes(id)).length },
+  { id: "sciences", emoji: "🔬", nom: "Génie des sciences", theme: true, besoin: 3, compte: f => f.filter(id => ["Jeu & sciences", "Nature"].includes(CAT_OF(id))).length },
+  { id: "pliage", emoji: "📄", nom: "Magie du pliage", theme: true, besoin: 3, compte: f => f.filter(id => CAT_OF(id) === "Pliage").length },
+  { id: "cuisine", emoji: "🧁", nom: "Toque de chef", theme: true, besoin: 2, compte: f => f.filter(id => CAT_OF(id) === "Cuisine").length },
+  { id: "dore", emoji: "✨", nom: "Étoile dorée", theme: true, besoin: 1, compte: () => dores().length },
+  { id: "photo", emoji: "📸", nom: "Photographe", theme: true, besoin: 3, compte: () => dores().length }
+];
+const seuilDe = b => typeof b.seuil === "function" ? b.seuil() : b.seuil;
+function badgeEtat(b, f = faits()) {
+  const besoin = b.theme ? b.besoin : seuilDe(b), n = b.theme ? b.compte(f) : f.length;
+  return { gagne: n >= besoin, n: Math.min(n, besoin), besoin };
+}
+const badgesGagnes = () => BADGES.filter(b => badgeEtat(b).gagne);
+function prochainPalier() { const n = faits().length; return BADGES.find(b => !b.theme && seuilDe(b) > n); }
+function badgesMessage() {
+  const n = faits().length, next = prochainPalier();
+  if (!n) return t("Gagne ton premier tampon pour débloquer ton premier badge !");
+  const bravo = t(n > 1 ? "Bravo, tu as déjà {n} tampons !" : "Bravo, tu as déjà {n} tampon !", { n });
+  if (!next) return bravo + " " + t("Tu as tous les badges de paliers : tu es une légende !");
+  const reste = seuilDe(next) - n;
+  return bravo + " " + t(reste > 1 ? "Plus que {r} pour le badge « {b} »." : "Plus que {r} pour le badge « {b} ».", { r: reste, b: t(next.nom) });
+}
+function badgesBlock() {
+  return `<div class="badges" aria-label="${t("Mes badges")}">
+    <p class="badge-msg"><strong>${esc(badgesMessage())}</strong></p>
+    ${(() => {
+      const chip = b => { const e = badgeEtat(b); return `<span class="badge ${e.gagne ? "on" : ""}" title="${esc(t(b.nom))}${e.gagne ? "" : " : " + e.n + " / " + e.besoin}"><span class="emo" aria-hidden="true">${b.emoji}</span><span class="bn">${esc(t(b.nom))}</span>${e.gagne ? "" : `<span class="bp">${e.n} / ${e.besoin}</span>`}</span>`; };
+      const on = BADGES.filter(b => badgeEtat(b).gagne), off = BADGES.filter(b => !badgeEtat(b).gagne);
+      return `${on.length ? `<div class="badge-row">${on.map(chip).join("")}</div>` : ""}
+      ${off.length ? `<details class="badge-more"><summary>${t("Voir les badges à gagner ({n})", { n: off.length })}</summary><div class="badge-row">${off.map(chip).join("")}</div></details>` : ""}`;
+    })()}
+  </div>`;
+}
+/* Après un nouveau tampon : fête chaque badge gagné qui n'a pas encore été montré */
+function feterNouveauxBadges() {
+  const vus = store.get("badgesVus", []), neufs = badgesGagnes().filter(b => !vus.includes(b.id));
+  if (!neufs.length) return;
+  store.set("badgesVus", [...vus, ...neufs.map(b => b.id)]);
+  const next = prochainPalier();
+  const d = document.createElement("div");
+  d.className = "badge-pop";
+  d.setAttribute("role", "dialog");
+  d.setAttribute("aria-label", t("Nouveau badge !"));
+  d.innerHTML = `<div class="badge-card">${Array.from({ length: 18 }, (_, i) => `<i class="cf" style="--x:${(i * 37) % 100}%;--d:${(i % 6) * .08}s;--c:${["var(--pumpkin)", "var(--sun)", "var(--leaf)", "var(--sky)", "var(--pink)", "var(--lilac)"][i % 6]}"></i>`).join("")}
+    <p class="label">${t(neufs.length > 1 ? "Nouveaux badges !" : "Nouveau badge !")}</p>
+    ${neufs.map(b => `<div class="big-badge"><span class="emo">${b.emoji}</span><strong>${esc(t(b.nom))}</strong></div>`).join("")}
+    <p>${esc(t(faits().length > 1 ? "Bravo, tu as déjà {n} tampons !" : "Bravo, tu as déjà {n} tampon !", { n: faits().length }))}${next ? " " + esc(t("À quand les {s} ?", { s: seuilDe(next) })) : ""}</p>
+    <button class="btn" id="badge-ok">${t("Super !")}</button></div>`;
+  document.body.appendChild(d);
+  const close = () => d.remove();
+  d.querySelector("#badge-ok").onclick = close;
+  d.onclick = e => { if (e.target === d) close(); };
+  d.querySelector("#badge-ok").focus();
+}
+
 /* Mascotte originale : une goutte de peinture avec son pinceau */
 function mascotSVG(cls = "mascot") {
   return `<svg class="${cls}" viewBox="0 0 220 220" role="img" aria-label="Mascotte : une goutte de peinture souriante qui tient un pinceau">
@@ -5433,6 +5520,33 @@ const UI = {
   "Confidentialité": ["Privacy", "Datenschutz", "Privacy", "Privacidad"],
   "Merci ! Un e-mail de confirmation vient de partir : clique sur le lien qu'il contient pour valider ton inscription.": ["Thank you! A confirmation email is on its way: click the link inside to confirm your sign-up.", "Danke! Eine Bestätigungs-E-Mail ist unterwegs: Klicke auf den Link darin, um deine Anmeldung zu bestätigen.", "Grazie! Ti abbiamo inviato un'e-mail di conferma: clicca sul link per completare l'iscrizione.", "¡Gracias! Te hemos enviado un correo de confirmación: haz clic en el enlace para validar tu inscripción."],
   "L'inscription n'a pas pu aboutir. Vérifie l'adresse et réessaie.": ["The sign-up didn't go through. Check the address and try again.", "Die Anmeldung hat nicht geklappt. Prüfe die Adresse und versuche es noch einmal.", "L'iscrizione non è andata a buon fine. Controlla l'indirizzo e riprova.", "La inscripción no se ha podido completar. Revisa la dirección e inténtalo de nuevo."],
+  "Voir les badges à gagner ({n})": ["See the badges to win ({n})", "Abzeichen, die du noch holen kannst ({n})", "Vedi i badge da conquistare ({n})", "Ver las insignias por ganar ({n})"],
+  "Mes badges": ["My badges", "Meine Abzeichen", "I miei badge", "Mis insignias"],
+  "Premier tampon": ["First stamp", "Erster Stempel", "Primo timbro", "Primer sello"],
+  "Mains agiles": ["Nimble hands", "Flinke Hände", "Mani agili", "Manos ágiles"],
+  "Artiste en herbe": ["Budding artist", "Kleines Kunsttalent", "Artista in erba", "Artista en ciernes"],
+  "Étoile de l'atelier": ["Workshop star", "Werkstatt-Stern", "Stella del laboratorio", "Estrella del taller"],
+  "As du carton": ["Cardboard ace", "Papp-Ass", "Asso del cartone", "As del cartón"],
+  "Génie du bricolage": ["Craft genius", "Bastel-Genie", "Genio del fai da te", "Genio de las manualidades"],
+  "Trésor de l'atelier": ["Workshop treasure", "Werkstatt-Schatz", "Tesoro del laboratorio", "Tesoro del taller"],
+  "Légende Fabrikolo": ["Fabrikolo legend", "Fabrikolo-Legende", "Leggenda Fabrikolo", "Leyenda Fabrikolo"],
+  "Pro d'Halloween": ["Halloween pro", "Halloween-Profi", "Pro di Halloween", "Pro de Halloween"],
+  "Pro de Noël": ["Christmas pro", "Weihnachts-Profi", "Pro di Natale", "Pro de Navidad"],
+  "Pro de Pâques": ["Easter pro", "Oster-Profi", "Pro di Pasqua", "Pro de Pascua"],
+  "Génie des sciences": ["Science whizz", "Forscher-Genie", "Genio delle scienze", "Genio de las ciencias"],
+  "Magie du pliage": ["Folding wizard", "Falt-Zauber", "Magia della piegatura", "Magia del plegado"],
+  "Toque de chef": ["Chef's hat", "Kochmütze", "Cappello da chef", "Gorro de chef"],
+  "Étoile dorée": ["Golden star", "Goldener Stern", "Stella dorata", "Estrella dorada"],
+  "Photographe": ["Photographer", "Fotograf", "Fotografo", "Fotógrafo"],
+  "Gagne ton premier tampon pour débloquer ton premier badge !": ["Earn your first stamp to unlock your first badge!", "Hol dir deinen ersten Stempel und schalte dein erstes Abzeichen frei!", "Guadagna il tuo primo timbro per sbloccare il primo badge!", "¡Consigue tu primer sello para desbloquear tu primera insignia!"],
+  "Bravo, tu as déjà {n} tampons !": ["Well done, you already have {n} stamps!", "Super, du hast schon {n} Stempel!", "Bravo, hai già {n} timbri!", "¡Bravo, ya tienes {n} sellos!"],
+  "Bravo, tu as déjà {n} tampon !": ["Well done, you already have {n} stamp!", "Super, du hast schon {n} Stempel!", "Bravo, hai già {n} timbro!", "¡Bravo, ya tienes {n} sello!"],
+  "Plus que {r} pour le badge « {b} ».": ["Just {r} more for the “{b}” badge.", "Nur noch {r} bis zum Abzeichen „{b}“.", "Ne mancano {r} per il badge «{b}».", "Solo te faltan {r} para la insignia «{b}»."],
+  "Tu as tous les badges de paliers : tu es une légende !": ["You have every milestone badge: you're a legend!", "Du hast alle Stufen-Abzeichen: Du bist eine Legende!", "Hai tutti i badge dei traguardi: sei una leggenda!", "Tienes todas las insignias de etapas: ¡eres una leyenda!"],
+  "Nouveau badge !": ["New badge!", "Neues Abzeichen!", "Nuovo badge!", "¡Nueva insignia!"],
+  "Nouveaux badges !": ["New badges!", "Neue Abzeichen!", "Nuovi badge!", "¡Nuevas insignias!"],
+  "À quand les {s} ?": ["When will you reach {s}?", "Wann schaffst du {s}?", "A quando i {s}?", "¿Para cuándo los {s}?"],
+  "Super !": ["Great!", "Super!", "Fantastico!", "¡Genial!"],
   "Inscriptions très bientôt.": ["Sign-ups opening very soon.", "Anmeldung bald möglich.", "Iscrizioni a breve.", "Inscripciones muy pronto."],
   "📸 Montre ta réalisation": ["📸 Show us what you made", "📸 Zeig dein Werk", "📸 Mostra il tuo lavoretto", "📸 Enséñanos tu creación"],
   "📸 Envoyer ma photo": ["📸 Send my photo", "📸 Foto senden", "📸 Invia la mia foto", "📸 Enviar mi foto"],
@@ -5823,6 +5937,7 @@ function renderHome() {
     <section class="carnet" aria-label="${t("Carnet de tampons")}">
       <div class="row"><h3>${t("Mon carnet de tampons")}</h3><span class="label">${done.length ? t(done.length > 1 ? "{n} activités réussies" : "{n} activité réussie", { n: done.length }) : t("Termine une activité pour gagner ton premier tampon")}</span></div>
       <div class="stamp-row">${ACTIVITIES.map(a0 => { const a = L(a0); return `<button class="stamp ${done.includes(a.id) ? "on" : ""} ${isGold(a.id) ? "gold" : ""}" data-open="${a.id}" title="${esc(a.titre)}${isGold(a.id) ? " : " + t("tampon doré") : done.includes(a.id) ? " : " + t("réussi") : ""}">${ART[a.id] ? ART[a.id]() : ""}</button>`; }).join("")}</div>
+      ${badgesBlock()}
     </section>
 
     ${galleryBlock()}
@@ -5899,9 +6014,9 @@ function renderActivity(a0) {
   bindTopbar();
   $("#back").onclick = () => go("");
   $("#other").onclick = () => surprise(a.id);
-  $("#done").onclick = () => { toggleDone(a.id); renderActivity(a0); };
+  $("#done").onclick = () => { toggleDone(a.id); renderActivity(a0); if (isDone(a.id)) feterNouveauxBadges(); };
   if ($("#gold-ok")) $("#gold-ok").onclick = () => {
-    if (checkGold(a.id, $("#gold-code").value)) renderActivity(a0);
+    if (checkGold(a.id, $("#gold-code").value)) { renderActivity(a0); feterNouveauxBadges(); }
     else $("#gold-msg").textContent = t("Ce code ne marche pas. Vérifie les lettres avec un parent : le code s'affiche juste après l'envoi de la photo.");
   };
   document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => { state.tab = b.dataset.tab; state.pas = false; releaseWake(); renderActivity(a0); });
