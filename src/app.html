@@ -2582,6 +2582,55 @@ const ACTIVITIES = [
     sources: [
       ["Idée d'origine : les_productions_chacha (Instagram)", "https://www.instagram.com/reel/DIjsrRdMEVf/"]
     ]
+  },
+  {
+    id: "main-zombie",
+    nouveau: "2026-09-30",
+    titre: "La main de zombie qui sort de terre",
+    accroche: "Un gant caché sous la terre d'un pot, un peu de vinaigre… et une main se gonfle et surgit du sol : l'expérience d'Halloween qui fait crier (de rire).",
+    saisons: ["Automne"],
+    categorie: "Jeu & sciences",
+    couleur: "var(--leaf)",
+    age: "Dès 4 ans, avec un adulte",
+    ageMin: 4,
+    faits: [["Préparation", "10 min"], ["Activité", "15 min"], ["Séchage", "Aucun"], ["Coût", "Placards"]],
+    materiel: [
+      ["Un gobelet en carton", ""],
+      ["Un crayon bien taillé", "Pour percer les petits trous (l'adulte)."],
+      ["3 cuillères à soupe de bicarbonate de soude", ""],
+      ["Un grand verre de vinaigre blanc", "Environ 250 ml."],
+      ["Un gant en latex ou en nitrile, noir ou vert si possible", "En nitrile s'il y a une allergie au latex."],
+      ["Du ruban adhésif", ""],
+      ["Un pot de fleurs et de la terre", "Du terreau léger marche mieux que de la terre lourde."],
+      ["Une bassine ou un plateau", "Pour poser le pot : ça peut déborder."]
+    ],
+    seances: [
+      { titre: "Préparer le piège", etapes: [
+        "L'adulte perce une dizaine de petits trous avec le crayon dans le bas et les côtés du gobelet.",
+        "Versez le bicarbonate au fond du gobelet.",
+        "Enfilez le gant sur l'ouverture du gobelet, doigts vers le haut, et fixez-le tout autour avec plusieurs tours de ruban adhésif : ça doit être bien étanche.",
+        "Posez le gobelet au fond du pot, gant vers le haut, et recouvrez-le entièrement de terre, sans tasser, sans rien laisser dépasser.",
+        "Mettez le pot dans la bassine."
+      ]},
+      { titre: "Réveiller le zombie", etapes: [
+        "Versez doucement le vinaigre tout autour, sur la terre.",
+        "Reculez d'un pas et observez en silence…",
+        "Le vinaigre descend, entre par les trous et rencontre le bicarbonate : le gant se gonfle et la main pousse la terre pour sortir !",
+        "Si rien ne bouge au bout d'une minute, ajoutez un peu de vinaigre.",
+        "Pour recommencer : videz, rincez le gobelet, remettez du bicarbonate."
+      ]}
+    ],
+    science: "Le vinaigre est un acide, le bicarbonate une base. Quand ils se rencontrent, ils fabriquent un gaz, le dioxyde de carbone. Le gaz n'a pas d'autre sortie que le gant : il le gonfle comme un ballon, assez fort pour soulever la terre.",
+    variante: "Sans terre, sur la table : bicarbonate dans le gant, vinaigre dans une bouteille, on enfile le gant sur le goulot et on le redresse d'un coup. Plus rapide, mais moins de suspense.",
+    depannage: [
+      ["Le gant ne se gonfle pas", "Le gaz s'échappe par le ruban", "Refaire l'attache avec plus de tours de ruban adhésif."],
+      ["La main reste sous terre", "Trop de terre ou terre trop lourde", "Moins de terre, du terreau léger, sans tasser."],
+      ["Ça mousse mais rien ne sort", "Pas assez de vinaigre arrive aux trous", "Verser plus de vinaigre, près du gobelet."]
+    ],
+    securite: ["Le vinaigre pique les yeux : on ne se penche pas au-dessus du pot pendant la réaction, et on se lave les mains après.", "Attention aux allergies au latex : prendre un gant en nitrile.", "Le crayon pour percer est manipulé par l'adulte."],
+    sources: [
+      ["Vidéo d'origine : klkm_family (Instagram)", "https://www.instagram.com/reel/Dd4XvV_Il8U/"]
+    ]
   }
 ];
 
@@ -3101,6 +3150,12 @@ Object.assign(META, {
   "guirlande-poules": { niveau: 2, skills: ["Plier", "Découper", "Motricité fine"] },
   "bracelets-bouteille": { niveau: 2, skills: ["Créativité", "Prendre soin", "Motricité fine"] }
 });
+/* ---------- Illustration : la main de zombie (dessin original) ---------- */
+function zombieHandSVG() {
+  return svgWrap("Main verte de zombie qui sort de la terre d'un pot, avec des bulles", `<rect x="10" y="10" width="180" height="180" rx="14" fill="#1E1B33"/><circle cx="156" cy="42" r="14" fill="#FFE27A"/><circle cx="40" cy="36" r="2" fill="#fff"/><circle cx="70" cy="58" r="1.6" fill="#fff"/><path d="M72 74 C70 60 76 54 80 58 L82 44 C82 36 90 36 90 44 L91 38 C92 30 100 30 100 38 L101 42 C102 34 110 34 110 42 L110 60 C114 54 122 56 120 64 L112 90 C110 100 104 106 96 108 L80 108 C74 104 72 96 72 88 Z" fill="#6BD49A" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/><path d="M84 70 v10 M94 68 v12 M104 70 v10" stroke="#2FB373" stroke-width="2.5" stroke-linecap="round"/><path d="M40 118 C60 104 80 112 100 104 C120 112 140 104 160 118 Z" fill="#6B4F2A"/><path d="M44 116 H156 L146 176 C145 182 140 186 134 186 H66 C60 186 55 182 54 176 Z" fill="#E07B3A" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/><rect x="40" y="112" width="120" height="16" rx="6" fill="#C8641E" stroke="${INK}" stroke-width="3"/><circle cx="62" cy="100" r="5" fill="#fff" opacity=".7"/><circle cx="132" cy="96" r="4" fill="#fff" opacity=".7"/><circle cx="124" cy="84" r="3" fill="#fff" opacity=".6"/><circle cx="56" cy="88" r="3" fill="#fff" opacity=".6"/>`);
+}
+Object.assign(ART, { "main-zombie": zombieHandSVG });
+Object.assign(META, { "main-zombie": { niveau: 1, skills: ["Sciences : acide et base", "Observer", "Patience"] } });
 
 const meta = a => META[a.id] || { niveau: 1, skills: [] };
 const dots = n => `<span class="dots" aria-hidden="true">${"●".repeat(n)}${"○".repeat(3 - n)}</span>`;
@@ -3251,7 +3306,7 @@ const ICON = {
 const CATS = [["Toutes", () => true], ["Automne & Halloween", a => a.saisons.includes("Automne")], ["Noël & hiver", a => a.saisons.includes("Hiver")], ["Bricolage", a => ["Bricolage", "Modelage"].includes(a.categorie)], ["Sciences & nature", a => ["Jeu & sciences", "Nature"].includes(a.categorie)], ["Peinture & dessin", a => ["Peinture", "Dessin"].includes(a.categorie)], ["Pliage", a => a.categorie === "Pliage"], ["Cuisine & jeux", a => ["Cuisine", "Jeu"].includes(a.categorie)], ["Sans attente", a => !a.sechage], ["Tout-petits", a => a.ageMin <= 3]];
 /* ---------- Le moment de l'année : la page d'accueil suit le calendrier ----------
    Chaque période met en avant ses activités. Pour tester une autre date : ajouter ?date=2026-12-10 à l'adresse. */
-const HALLOWEEN_IDS = ["fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
+const HALLOWEEN_IDS = ["main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
 const NOEL_IDS = ["calendrier-avent", "carte-pop-up", "flocons-papier", "pate-a-sel", "carte-a-gratter", "mangeoire"];
 const PAQUES_IDS = ["lapin-rouleau", "chocolats-paques", "coquetiers-lapins", "lapins-paillettes", "chasse-lapins-mousse", "guirlande-poules", "carottes-surprises", "carte-a-gratter"];
 const ETE_IDS = ["bracelets-bouteille", "bulles-geantes", "flotte-coule", "volcan", "eruptions-arc-en-ciel", "pate-a-patouille", "eau-qui-marche", "montgolfiere"];
@@ -3303,15 +3358,18 @@ function currentMoment() {
   }
   return Object.assign({}, m, { jours });
 }
+const estNouveau = a => a.nouveau && (today() - new Date(a.nouveau + "T12:00:00")) / 86400000 < 14;
 /* Les activités du moment d'abord ; si elles sont peu nombreuses, on complète avec des idées « toute l'année », qui changent chaque semaine. */
 function momentPicks(m, max = 6) {
-  const tagged = ACTIVITIES.filter(m.test).reverse();
+  const neufs = ACTIVITIES.filter(a => m.test(a) && estNouveau(a));
+  const tagged = ACTIVITIES.filter(a => m.test(a) && !estNouveau(a)).reverse();
+  max -= neufs.length;
   const semaine = Math.floor(today() / (7 * 86400000));
-  if (tagged.length > max) { const k = (semaine * max) % tagged.length; return tagged.slice(k).concat(tagged.slice(0, k)).slice(0, max); }
+  if (tagged.length > max) { const k = (semaine * max) % tagged.length; return neufs.concat(tagged.slice(k).concat(tagged.slice(0, k)).slice(0, max)); }
   const autres = ACTIVITIES.filter(a => !m.test(a) && a.saisons.includes("Toute l'année"));
   const debut = autres.length ? semaine % autres.length : 0;
   const tournant = autres.slice(debut).concat(autres.slice(0, debut));
-  return tagged.concat(tournant).slice(0, max);
+  return neufs.concat(tagged.concat(tournant).slice(0, max));
 }
 const MOMENT = currentMoment();
 CATS.splice(1, 0, [MOMENT.chip, MOMENT.test]);
@@ -5524,6 +5582,58 @@ Object.assign(TRAD.es, {
   securite: ["Nada de caramelos pequeños y duros para menores de 3 años.", "Cuidado con las alergias si participan amigos en la búsqueda."]
 }
 });
+Object.assign(TRAD.en, {
+"main-zombie": {
+  titre: "The zombie hand rising from the earth",
+  accroche: "A glove hidden under the soil in a pot, a splash of vinegar… and a hand swells up and bursts out of the ground: the Halloween experiment that makes everyone scream (with laughter).",
+  age: "age 4+, with a grown-up",
+  materiel: [["A paper cup", ""], ["A well-sharpened pencil", "To poke the little holes (grown-up's job)."], ["3 tablespoons of bicarbonate of soda", ""], ["A large glass of white vinegar", "About 250 ml."], ["A latex or nitrile glove, black or green if possible", "Nitrile if anyone has a latex allergy."], ["Sticky tape", ""], ["A flowerpot and some soil", "Light potting compost works better than heavy soil."], ["A washing-up bowl or a tray", "To stand the pot in: it can overflow."]],
+  seances: [{ titre: "Set the trap", etapes: ["The grown-up pokes about ten little holes with the pencil in the bottom and sides of the cup.", "Pour the bicarbonate of soda into the bottom of the cup.", "Stretch the glove over the mouth of the cup, fingers pointing up, and fix it all the way round with several turns of sticky tape: it must be completely airtight.", "Put the cup at the bottom of the pot, glove pointing up, and cover it completely with soil, without pressing down and without leaving anything poking out.", "Stand the pot in the bowl."] }, { titre: "Wake the zombie", etapes: ["Gently pour the vinegar all around, onto the soil.", "Step back and watch in silence…", "The vinegar trickles down, gets in through the holes and meets the bicarbonate: the glove swells and the hand pushes the soil aside to climb out!", "If nothing moves after a minute, add a little more vinegar.", "To do it again: empty it, rinse the cup and put in fresh bicarbonate."] }],
+  science: "Vinegar is an acid and bicarbonate of soda is a base. When they meet, they make a gas called carbon dioxide. The gas has nowhere to go except into the glove: it blows it up like a balloon, strongly enough to lift the soil.",
+  variante: "Without soil, on the table: bicarbonate in the glove, vinegar in a bottle, stretch the glove over the neck and tip it up in one go. Quicker, but less suspense.",
+  depannage: [["The glove doesn't inflate", "The gas is escaping through the tape", "Redo the seal with more turns of sticky tape."], ["The hand stays underground", "Too much soil, or soil too heavy", "Less soil, light compost, not pressed down."], ["It fizzes but nothing comes out", "Not enough vinegar is reaching the holes", "Pour in more vinegar, close to the cup."]],
+  securite: ["Vinegar stings the eyes: no leaning over the pot during the reaction, and wash hands afterwards.", "Watch out for latex allergies: use a nitrile glove.", "Only the grown-up handles the pencil for poking holes."]
+}
+});
+Object.assign(TRAD.de, {
+"main-zombie": {
+  titre: "Die Zombiehand, die aus der Erde kommt",
+  accroche: "Ein Handschuh, versteckt unter der Erde in einem Topf, ein Schuss Essig… und eine Hand bläht sich auf und bricht aus dem Boden hervor: das Halloween-Experiment, bei dem alle kreischen (vor Lachen).",
+  age: "ab 4 Jahren, mit einem Erwachsenen",
+  materiel: [["Ein Pappbecher", ""], ["Ein gut gespitzter Bleistift", "Zum Stechen der kleinen Löcher (macht der Erwachsene)."], ["3 Esslöffel Natron", ""], ["Ein großes Glas weißer Essig", "Etwa 250 ml."], ["Ein Latex- oder Nitrilhandschuh, am besten schwarz oder grün", "Nitril, falls jemand eine Latexallergie hat."], ["Klebeband", ""], ["Ein Blumentopf und Erde", "Leichte Blumenerde funktioniert besser als schwere Gartenerde."], ["Eine Schüssel oder ein Tablett", "Zum Daraufstellen des Topfes: Es kann überlaufen."]],
+  seances: [{ titre: "Die Falle vorbereiten", etapes: ["Der Erwachsene sticht mit dem Bleistift etwa zehn kleine Löcher in den Boden und die Seiten des Bechers.", "Das Natron unten in den Becher geben.", "Den Handschuh über die Öffnung des Bechers ziehen, Finger nach oben, und ringsum mit mehreren Lagen Klebeband befestigen: Es muss richtig dicht sein.", "Den Becher unten in den Topf stellen, Handschuh nach oben, und ganz mit Erde bedecken, ohne sie festzudrücken und ohne dass etwas herausschaut.", "Den Topf in die Schüssel stellen."] }, { titre: "Den Zombie wecken", etapes: ["Den Essig langsam rundherum auf die Erde gießen.", "Einen Schritt zurücktreten und ganz still beobachten…", "Der Essig sickert nach unten, dringt durch die Löcher und trifft auf das Natron: Der Handschuh bläht sich auf, und die Hand schiebt die Erde weg, um herauszukommen!", "Wenn sich nach einer Minute nichts bewegt, noch etwas Essig dazugeben.", "Zum Wiederholen: ausleeren, den Becher ausspülen, neues Natron hineingeben."] }],
+  science: "Essig ist eine Säure, Natron eine Base. Wenn sie sich treffen, entsteht ein Gas: Kohlendioxid. Das Gas kann nirgendwo anders hin als in den Handschuh: Es bläst ihn auf wie einen Luftballon, und zwar so kräftig, dass er die Erde hochhebt.",
+  variante: "Ohne Erde, auf dem Tisch: Natron in den Handschuh, Essig in eine Flasche, den Handschuh über den Flaschenhals stülpen und mit einem Ruck aufrichten. Schneller, aber weniger spannend.",
+  depannage: [["Der Handschuh bläht sich nicht auf", "Das Gas entweicht am Klebeband", "Die Verbindung mit mehr Lagen Klebeband neu machen."], ["Die Hand bleibt unter der Erde", "Zu viel Erde oder zu schwere Erde", "Weniger Erde, leichte Blumenerde, nicht festdrücken."], ["Es schäumt, aber nichts kommt heraus", "Zu wenig Essig gelangt zu den Löchern", "Mehr Essig nachgießen, nah am Becher."]],
+  securite: ["Essig brennt in den Augen: Während der Reaktion beugt man sich nicht über den Topf, und danach werden die Hände gewaschen.", "Vorsicht bei Latexallergie: einen Nitrilhandschuh nehmen.", "Den Bleistift zum Löcherstechen benutzt nur der Erwachsene."]
+}
+});
+Object.assign(TRAD.it, {
+"main-zombie": {
+  titre: "La mano di zombie che spunta dalla terra",
+  accroche: "Un guanto nascosto sotto la terra di un vaso, un po' di aceto… e una mano si gonfia e sbuca dal terreno: l'esperimento di Halloween che fa strillare (dalle risate).",
+  age: "dai 4 anni, con un adulto",
+  materiel: [["Un bicchiere di carta", ""], ["Una matita ben temperata", "Per fare i forellini (ci pensa l'adulto)."], ["3 cucchiai di bicarbonato di sodio", ""], ["Un bicchiere grande di aceto bianco", "Circa 250 ml."], ["Un guanto in lattice o in nitrile, nero o verde se possibile", "In nitrile se c'è un'allergia al lattice."], ["Nastro adesivo", ""], ["Un vaso da fiori e della terra", "Il terriccio leggero funziona meglio della terra pesante."], ["Una bacinella o un vassoio", "Per appoggiarci il vaso: può traboccare."]],
+  seances: [{ titre: "Preparare la trappola", etapes: ["L'adulto fa una decina di forellini con la matita sul fondo e sui lati del bicchiere.", "Versate il bicarbonato sul fondo del bicchiere.", "Infilate il guanto sull'apertura del bicchiere, dita verso l'alto, e fissatelo tutt'intorno con diversi giri di nastro adesivo: deve essere ben sigillato.", "Mettete il bicchiere sul fondo del vaso, guanto verso l'alto, e copritelo completamente di terra, senza pressare e senza lasciar sporgere niente.", "Mettete il vaso nella bacinella."] }, { titre: "Svegliare lo zombie", etapes: ["Versate piano l'aceto tutt'intorno, sulla terra.", "Fate un passo indietro e osservate in silenzio…", "L'aceto scende, entra dai forellini e incontra il bicarbonato: il guanto si gonfia e la mano spinge via la terra per uscire!", "Se dopo un minuto non si muove niente, aggiungete ancora un po' di aceto.", "Per rifarlo: svuotate, sciacquate il bicchiere e rimettete il bicarbonato."] }],
+  science: "L'aceto è un acido, il bicarbonato una base. Quando si incontrano producono un gas, l'anidride carbonica. Il gas non ha altra via d'uscita che il guanto: lo gonfia come un palloncino, con abbastanza forza da sollevare la terra.",
+  variante: "Senza terra, sul tavolo: bicarbonato nel guanto, aceto in una bottiglia, si infila il guanto sul collo della bottiglia e lo si raddrizza di colpo. Più veloce, ma con meno suspense.",
+  depannage: [["Il guanto non si gonfia", "Il gas scappa dal nastro adesivo", "Rifate la chiusura con più giri di nastro adesivo."], ["La mano resta sotto terra", "Troppa terra o terra troppo pesante", "Meno terra, terriccio leggero, senza pressare."], ["Fa schiuma ma non esce niente", "Non arriva abbastanza aceto ai forellini", "Versate più aceto, vicino al bicchiere."]],
+  securite: ["L'aceto brucia gli occhi: durante la reazione non ci si sporge sopra il vaso, e dopo ci si lava le mani.", "Attenzione alle allergie al lattice: usate un guanto in nitrile.", "La matita per bucare la usa solo l'adulto."]
+}
+});
+Object.assign(TRAD.es, {
+"main-zombie": {
+  titre: "La mano de zombi que sale de la tierra",
+  accroche: "Un guante escondido bajo la tierra de una maceta, un chorrito de vinagre… y una mano se hincha y brota del suelo: el experimento de Halloween que hace gritar (de risa).",
+  age: "a partir de 4 años, con un adulto",
+  materiel: [["Un vaso de cartón", ""], ["Un lápiz bien afilado", "Para hacer los agujeritos (lo hace el adulto)."], ["3 cucharadas de bicarbonato sódico", ""], ["Un vaso grande de vinagre blanco", "Unos 250 ml."], ["Un guante de látex o de nitrilo, negro o verde si puede ser", "De nitrilo si alguien es alérgico al látex."], ["Cinta adhesiva", ""], ["Una maceta y tierra", "El sustrato ligero funciona mejor que la tierra pesada."], ["Un barreño o una bandeja", "Para poner la maceta encima: puede rebosar."]],
+  seances: [{ titre: "Preparar la trampa", etapes: ["El adulto hace una decena de agujeritos con el lápiz en el fondo y los lados del vaso.", "Echad el bicarbonato en el fondo del vaso.", "Colocad el guante en la boca del vaso, con los dedos hacia arriba, y sujetadlo todo alrededor con varias vueltas de cinta adhesiva: tiene que quedar bien hermético.", "Poned el vaso en el fondo de la maceta, con el guante hacia arriba, y cubridlo por completo de tierra, sin apretar y sin que asome nada.", "Poned la maceta en el barreño."] }, { titre: "Despertar al zombi", etapes: ["Echad el vinagre despacio todo alrededor, sobre la tierra.", "Dad un paso atrás y observad en silencio…", "El vinagre baja, entra por los agujeritos y se encuentra con el bicarbonato: ¡el guante se hincha y la mano empuja la tierra para salir!", "Si al cabo de un minuto no se mueve nada, añadid un poco más de vinagre.", "Para repetir: vaciad, enjuagad el vaso y volved a poner bicarbonato."] }],
+  science: "El vinagre es un ácido y el bicarbonato, una base. Cuando se juntan, fabrican un gas: el dióxido de carbono. El gas no tiene más salida que el guante: lo infla como un globo, con fuerza suficiente para levantar la tierra.",
+  variante: "Sin tierra, sobre la mesa: bicarbonato en el guante, vinagre en una botella, se coloca el guante en el cuello de la botella y se levanta de golpe. Más rápido, pero con menos suspense.",
+  depannage: [["El guante no se infla", "El gas se escapa por la cinta", "Volver a sujetarlo con más vueltas de cinta adhesiva."], ["La mano se queda bajo tierra", "Demasiada tierra o tierra demasiado pesada", "Menos tierra, sustrato ligero, sin apretar."], ["Hace espuma pero no sale nada", "No llega suficiente vinagre a los agujeritos", "Echar más vinagre, cerca del vaso."]],
+  securite: ["El vinagre pica en los ojos: no nos asomamos a la maceta durante la reacción, y nos lavamos las manos después.", "Cuidado con la alergia al látex: usad un guante de nitrilo.", "El lápiz para agujerear lo maneja el adulto."]
+}
+});
 /* ---------- Langues : interface (français → anglais, allemand, italien, espagnol) ---------- */
 const LANGS = [["fr", "Français"], ["en", "English"], ["de", "Deutsch"], ["it", "Italiano"], ["es", "Español"]];
 const LOCALES = { fr: "fr-FR", en: "en-GB", de: "de-DE", it: "it-IT", es: "es-ES" };
@@ -5586,6 +5696,7 @@ const UI = {
   "Épingler": ["Pin it", "Pinnen", "Salva su Pinterest", "Guardar en Pinterest"],
   "Partager le lien": ["Share link", "Link teilen", "Condividi il link", "Compartir enlace"],
   "Lien copié": ["Link copied", "Link kopiert", "Link copiato", "Enlace copiado"],
+  "✨ Nouveau": ["✨ New", "✨ Neu", "✨ Novità", "✨ Nuevo"],
   "Mes badges": ["My badges", "Meine Abzeichen", "I miei badge", "Mis insignias"],
   "Premier tampon": ["First stamp", "Erster Stempel", "Primo timbro", "Primer sello"],
   "Mains agiles": ["Nimble hands", "Flinke Hände", "Mani agili", "Manos ágiles"],
@@ -5946,6 +6057,7 @@ function cardHTML(a0, done) {
   return `
         <button class="card" data-open="${a.id}" style="--c:${a.couleur}">
           ${done.includes(a.id) ? `<span class="done-badge">${t("Fait !")}</span>` : ""}
+          ${estNouveau(a0) ? `<span class="done-badge" style="left:14px;right:auto;background:var(--pumpkin);color:#fff">${t("✨ Nouveau")}</span>` : ""}
           ${mainArt(a)}
           <div class="body">
             <span class="cat">${esc(t(a.categorie))}</span>
