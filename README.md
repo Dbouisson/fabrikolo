@@ -140,3 +140,10 @@ Réglages du projet Cloudflare Pages (une seule fois) :
 - dossier de sortie : `dist`.
 
 Ensuite, chaque modification envoyée sur la branche `main` est en ligne en une à deux minutes.
+
+## 11. Images de partage, texte pour Google, partage et impression
+
+- Chaque fiche a une image verticale 1000 × 1500 (format Pinterest) dans `og/{langue}/{id}.jpg`, plus `accueil.jpg`. Elles apparaissent quand on partage un lien (WhatsApp, Facebook, Pinterest). Pour les refaire après l'ajout de fiches : `node outils/images-partage.js` (Playwright nécessaire).
+- Le texte complet de chaque fiche est écrit directement dans la page, avec des données structurées (HowTo), pour que Google et Pinterest le lisent sans exécuter le code.
+- Chaque fiche a des boutons WhatsApp, Pinterest, Facebook, « Partager le lien » et « Imprimer la fiche » (une à deux pages A4, matériel à cocher).
+- Pour marquer une activité réellement testée à la maison, ajouter `teste: true` dans sa fiche : un badge « ✓ Testé par nous » s'affiche.

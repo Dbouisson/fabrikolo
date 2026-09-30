@@ -46,7 +46,7 @@ const analytics = cfg.cloudflareAnalyticsToken
   ? `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${esc(cfg.cloudflareAnalyticsToken)}"}'></script>`
   : "";
 
-function page({ title, description, url, start, lang = "fr", alt = "" }) {
+function page({ title, description, url, start, lang = "fr", alt = "", image = "", statique = "", ld = null }) {
   const site = { lang, newsletterAction: cfg.newsletterAction || "", contributionFormUrl: cfg.contributionFormUrl || "", galerie: cfg.galerie || [], concours: cfg.concours || null, codeDore: cfg.codeDore || "", start: start || "" };
   return `<!doctype html>
 <html lang="${lang}"><head>
@@ -61,11 +61,19 @@ ${alt}<meta property="og:type" content="website">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(url)}">
 <meta property="og:locale" content="${OG[lang]}">
+${image ? `<meta property="og:image" content="${esc(image)}">
+<meta property="og:image:width" content="1000">
+<meta property="og:image:height" content="1500">
+<meta property="og:image:alt" content="${esc(title)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${esc(image)}">
+<meta name="pinterest-rich-pin" content="true">` : ""}
+${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, "\\u003c")}</script>` : ""}
 <style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <script>window.SITE=${JSON.stringify(site)};</script>
 ${analytics}
 </head><body>
-${body}
+${statique ? body.replace('<div class="wrap" id="app"></div>', `<div class="wrap" id="app">${statique}</div>`) : body}
 </body></html>
 `;
 }
@@ -84,10 +92,45 @@ write("app.css", CSS);
 const alternates = rel => LANGS.map(l => `<link rel="alternate" hreflang="${l}" href="${base}${pre(l)}${rel}">`).join("\n") + `\n<link rel="alternate" hreflang="x-default" href="${base}${rel}">\n`;
 
 write("404.html", page({ title: `${TXT.fr.nf} · ${cfg.nomSite}`, description: cfg.description, url: `${base}/` }));
+// Texte des pages visible sans JavaScript : Google, Pinterest et les aperçus de liens le lisent directement.
+// L'application le remplace par la version interactive dès qu'elle démarre.
+const LAB = {
+  fr: { mat: "Matériel", etapes: "Étapes", rate: "Si ça rate", secu: "Sécurité", sources: "Sources", toutes: "Toutes les activités", age: "Âge" },
+  en: { mat: "Materials", etapes: "Steps", rate: "If it goes wrong", secu: "Safety", sources: "Sources", toutes: "All activities", age: "Age" },
+  de: { mat: "Material", etapes: "Schritte", rate: "Wenn es nicht klappt", secu: "Sicherheit", sources: "Quellen", toutes: "Alle Aktivitäten", age: "Alter" },
+  it: { mat: "Materiale", etapes: "Passaggi", rate: "Se qualcosa va storto", secu: "Sicurezza", sources: "Fonti", toutes: "Tutte le attività", age: "Età" },
+  es: { mat: "Materiales", etapes: "Pasos", rate: "Si algo sale mal", secu: "Seguridad", sources: "Fuentes", toutes: "Todas las actividades", age: "Edad" }
+};
+const imageDe = (l, id) => `${base}/og/${l}/${id}.jpg`;
+function ficheStatique(l, a) {
+  const B = LAB[l];
+  return `<article class="statique"><h1>${esc(a.titre)}</h1><p>${esc(a.accroche)}</p><p><strong>${B.age} :</strong> ${esc(a.age || "")}</p>
+<h2>${B.mat}</h2><ul>${(a.materiel || []).map(m => `<li>${esc(m[0])}${m[1] ? " : " + esc(m[1]) : ""}</li>`).join("")}</ul>
+<h2>${B.etapes}</h2>${(a.seances || []).map(se => `<h3>${esc(se.titre)}</h3><ol>${se.etapes.map(e => `<li>${esc(e)}</li>`).join("")}</ol>`).join("")}
+${a.science ? `<p>${esc(a.science)}</p>` : ""}${a.variante ? `<p>${esc(a.variante)}</p>` : ""}
+${(a.depannage || []).length ? `<h2>${B.rate}</h2><ul>${a.depannage.map(d => `<li>${esc(d[0])} : ${esc(d[2])}</li>`).join("")}</ul>` : ""}
+${(a.securite || []).length ? `<h2>${B.secu}</h2><ul>${a.securite.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+<h2>${B.sources}</h2><ul>${(a.sources || []).map(x => `<li><a href="${esc(x[1])}" rel="noopener">${esc(x[0])}</a></li>`).join("")}</ul>
+<p><a href="${pre(l)}/">${B.toutes}</a></p></article>`;
+}
+function accueilStatique(l, T) {
+  return `<section class="statique"><h1>${esc(cfg.nomSite)} : ${esc(T.home)}</h1><p>${esc(T.desc)}</p><ul>${ACTIVITIES.map(a0 => { const a = tr(l, a0); return `<li><a href="${pre(l)}/activites/${a.id}/">${esc(a.titre)}</a> : ${esc(a.accroche)}</li>`; }).join("")}</ul></section>`;
+}
+function ldFiche(l, a, url) {
+  return { "@context": "https://schema.org", "@type": "HowTo", name: a.titre, description: a.accroche, image: imageDe(l, a.id), inLanguage: l, url,
+    supply: (a.materiel || []).map(m => ({ "@type": "HowToSupply", name: m[0] })),
+    step: (a.seances || []).flatMap(se => se.etapes).map((e, i) => ({ "@type": "HowToStep", position: i + 1, text: e })),
+    publisher: { "@type": "Organization", name: cfg.nomSite, url: base + "/" } };
+}
+// Images de partage : fabriquées par outils/images-partage.js dans og/, copiées telles quelles
+const OG_SRC = path.join(ROOT, "og");
+if (fs.existsSync(OG_SRC)) for (const l of fs.readdirSync(OG_SRC)) for (const f of fs.readdirSync(path.join(OG_SRC, l))) write(`og/${l}/${f}`, fs.readFileSync(path.join(OG_SRC, l, f)));
+const aImage = (l, id) => fs.existsSync(path.join(OG_SRC, l, id + ".jpg")) ? imageDe(l, id) : "";
+
 for (const l of LANGS) {
   const T = TXT[l], P = pre(l);
   // Accueil
-  write(`${P.slice(1)}${P ? "/" : ""}index.html`, page({ lang: l, title: `${cfg.nomSite} : ${T.home}`, description: T.desc, url: `${base}${P}/`, alt: alternates("/") }));
+  write(`${P.slice(1)}${P ? "/" : ""}index.html`, page({ lang: l, title: `${cfg.nomSite} : ${T.home}`, description: T.desc, url: `${base}${P}/`, alt: alternates("/"), image: aImage(l, "accueil"), statique: accueilStatique(l, T) }));
   // Une page par activité
   for (const a0 of ACTIVITIES) {
     const a = tr(l, a0);
@@ -97,7 +140,10 @@ for (const l of LANGS) {
       description: `${a.accroche} ${T.more}`,
       url: `${base}${P}/activites/${a.id}/`,
       start: a.id,
-      alt: alternates(`/activites/${a.id}/`)
+      alt: alternates(`/activites/${a.id}/`),
+      image: aImage(l, a.id),
+      statique: ficheStatique(l, a),
+      ld: ldFiche(l, a, `${base}${P}/activites/${a.id}/`)
     }));
   }
 }

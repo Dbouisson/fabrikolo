@@ -211,6 +211,29 @@ footer { margin-top: 44px; color: var(--muted); font-size: 0.9rem; display: grid
 .dry { border: 2.5px dashed var(--line); border-radius: 18px; padding: 14px 16px; display: grid; gap: 8px; background: var(--bg-2); }
 .science { background: color-mix(in srgb, var(--sky) 14%, white); border: 2.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: grid; gap: 6px; }
 .science strong { font-family: var(--font-display); font-size: 1.15rem; }
+.share-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.btn.share { color: #fff; text-decoration: none; }
+.btn.share.wa { background: #1E9E57; }
+.btn.share.pin { background: #C8102E; }
+.btn.share.fb { background: #1877F2; }
+.teste { display: inline-block; font-weight: 800; color: #1E7A4C; background: #E3F6EA; border: 2px solid #1E7A4C; border-radius: 999px; padding: 4px 12px; margin: 6px 0 0; }
+.statique { background: var(--paper); border: 3px solid var(--line); border-radius: var(--r); padding: 20px; }
+#print-area { display: none; }
+@media print {
+  body::before { display: none !important; }
+  body > *:not(#print-area) { display: none !important; }
+  #print-area { display: block !important; font: 12pt/1.45 Nunito, Arial, sans-serif; color: #000; }
+  #print-area header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 6px; margin-bottom: 10px; font-size: 10pt; }
+  #print-area h1 { font: 800 24pt/1.1 "Baloo 2", Arial, sans-serif; margin: 6px 0; }
+  #print-area h2 { font: 800 15pt "Baloo 2", Arial, sans-serif; margin: 14px 0 4px; break-after: avoid; }
+  #print-area h3 { font-size: 12pt; margin: 8px 0 2px; }
+  #print-area .print-art { float: right; width: 42mm; margin: 0 0 6px 10px; }
+  #print-area .print-art svg { width: 42mm; height: 42mm; }
+  #print-area ul.check { list-style: none; padding-left: 0; }
+  #print-area ul.check li::before { content: "☐ "; }
+  #print-area li { break-inside: avoid; margin-bottom: 2px; }
+  #print-area footer { margin-top: 14px; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: 6px; }
+}
 .badges { display: grid; gap: 10px; border-top: 2px dashed var(--soft-line); padding-top: 12px; }
 .badge-msg { margin: 0; }
 .badge-more summary { cursor: pointer; font-weight: 800; color: var(--sky); margin-bottom: 8px; }
@@ -3099,6 +3122,41 @@ function toggleDone(id) {
   store.set("faits", f.includes(id) ? f.filter(x => x !== id) : [...f, id]);
 }
 
+/* ---------- Partage et impression d'une fiche ---------- */
+function ficheURL(id) {
+  const pre = LANG === "fr" ? "" : "/" + LANG;
+  return SITE ? `${location.origin}${pre}/activites/${id}/` : "";
+}
+function shareButtons(a) {
+  const url = ficheURL(a.id);
+  if (!url) return "";
+  const u = encodeURIComponent(url), txt = encodeURIComponent(`${a.titre} : ${a.accroche}`);
+  const img = encodeURIComponent(`${location.origin}/og/${LANG}/${a.id}.jpg`);
+  return `<a class="btn small share wa" href="https://wa.me/?text=${txt}%20${u}" target="_blank" rel="noopener">${t("WhatsApp")}</a>
+    <a class="btn small share pin" href="https://www.pinterest.com/pin/create/button/?url=${u}&media=${img}&description=${txt}" target="_blank" rel="noopener">${t("Épingler")}</a>
+    <a class="btn small share fb" href="https://www.facebook.com/sharer/sharer.php?u=${u}" target="_blank" rel="noopener">Facebook</a>
+    <button class="btn small ghost" data-copy="${esc(url)}">🔗 ${t("Partager le lien")}</button>`;
+}
+function imprimer(a) {
+  const old = document.getElementById("print-area");
+  if (old) old.remove();
+  const d = document.createElement("div");
+  d.id = "print-area";
+  d.innerHTML = `<header><strong>Fabrikolo</strong><span>${esc(ficheURL(a.id) || "fabrikolo.pages.dev")}</span></header>
+    <h1>${esc(a.titre)}</h1><p>${esc(a.accroche)}</p>
+    <p><strong>${esc(t("Âge : {a}.", { a: a.age }))}</strong> ${a.faits.map(f => `${esc(t(f[0]))} : ${esc(t(f[1]))}`).join(" · ")}</p>
+    <div class="print-art">${ART[a.id] ? ART[a.id]() : ""}</div>
+    <h2>${t("🧺 Matériel")}</h2><ul class="check">${a.materiel.map(m => `<li>${esc(m[0])}${m[1] ? ` <em>${esc(m[1])}</em>` : ""}</li>`).join("")}</ul>
+    <h2>${t("✂️ Étapes")}</h2>${a.seances.map(se => `<h3>${esc(se.titre)}</h3><ol>${se.etapes.map(e => `<li>${esc(e)}</li>`).join("")}</ol>`).join("")}
+    ${a.science ? `<p><strong>${t("🔬 Le petit mot de science")}</strong> ${esc(a.science)}</p>` : ""}
+    ${a.variante ? `<p><strong>💡</strong> ${esc(a.variante)}</p>` : ""}
+    ${(a.depannage || []).length ? `<h2>${t("🛠 Si ça rate")}</h2><ul>${a.depannage.map(x => `<li><strong>${esc(x[0])}</strong> : ${esc(x[2])}</li>`).join("")}</ul>` : ""}
+    ${(a.securite || []).length ? `<h2>${t("⚠️ Sécurité")}</h2><ul>${a.securite.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    <footer>${t("Sources")} : ${a.sources.map(x => esc(x[0])).join(" · ")}</footer>`;
+  document.body.appendChild(d);
+  window.print();
+}
+
 /* ---------- Badges : paliers de tampons et badges à thème ----------
    Calculés à partir du carnet ; un badge nouvellement gagné est fêté une seule fois (mémoire « badgesVus »). */
 const CAT_OF = id => (ACTIVITIES.find(a => a.id === id) || {}).categorie;
@@ -5476,6 +5534,7 @@ const UI = {
   "Activités terminées": ["Finished activities", "Erledigte Aktivitäten", "Attività completate", "Actividades terminadas"],
   "Mes tampons": ["My stamps", "Meine Stempel", "I miei timbri", "Mis sellos"],
   "Langue": ["Language", "Sprache", "Lingua", "Idioma"],
+  "Pour les 2 – 10 ans · fiches vérifiées": ["For ages 2 – 10 · checked guides", "Für 2 – 10 Jahre · geprüfte Anleitungen", "Dai 2 ai 10 anni · schede verificate", "De 2 a 10 años · fichas verificadas"],
   "Pour les 3 – 10 ans · testé et vérifié": ["For ages 3 – 10 · tested and checked", "Für 3 – 10 Jahre · getestet und geprüft", "Dai 3 ai 10 anni · testato e verificato", "De 3 a 10 años · probado y verificado"],
   "Qu'est-ce qu'on {fabrique} aujourd'hui ?": ["What shall we {make} today?", "Was {basteln} wir heute?", "Cosa {creiamo} oggi?", "¿Qué {fabricamos} hoy?"],
   "Des idées de bricolage, de pliage et de petites expériences, avec du matériel qu'on a déjà dans les placards. Chaque fiche dit quoi préparer, comment faire, et quoi faire quand ça rate.": ["Crafts, paper folding and little science experiments, using things you already have at home. Every activity tells you what to prepare, how to do it, and what to do when it goes wrong.", "Bastelideen, Faltarbeiten und kleine Experimente mit Material, das man schon zu Hause hat. Jede Anleitung sagt, was man braucht, wie es geht und was man tut, wenn es schiefgeht.", "Lavoretti, piegature e piccoli esperimenti con materiali che hai già in casa. Ogni scheda dice cosa preparare, come fare e cosa fare se qualcosa va storto.", "Manualidades, papiroflexia y pequeños experimentos con materiales que ya tienes en casa. Cada ficha dice qué preparar, cómo hacerlo y qué hacer si algo sale mal."],
@@ -5521,6 +5580,12 @@ const UI = {
   "Merci ! Un e-mail de confirmation vient de partir : clique sur le lien qu'il contient pour valider ton inscription.": ["Thank you! A confirmation email is on its way: click the link inside to confirm your sign-up.", "Danke! Eine Bestätigungs-E-Mail ist unterwegs: Klicke auf den Link darin, um deine Anmeldung zu bestätigen.", "Grazie! Ti abbiamo inviato un'e-mail di conferma: clicca sul link per completare l'iscrizione.", "¡Gracias! Te hemos enviado un correo de confirmación: haz clic en el enlace para validar tu inscripción."],
   "L'inscription n'a pas pu aboutir. Vérifie l'adresse et réessaie.": ["The sign-up didn't go through. Check the address and try again.", "Die Anmeldung hat nicht geklappt. Prüfe die Adresse und versuche es noch einmal.", "L'iscrizione non è andata a buon fine. Controlla l'indirizzo e riprova.", "La inscripción no se ha podido completar. Revisa la dirección e inténtalo de nuevo."],
   "Voir les badges à gagner ({n})": ["See the badges to win ({n})", "Abzeichen, die du noch holen kannst ({n})", "Vedi i badge da conquistare ({n})", "Ver las insignias por ganar ({n})"],
+  "Testé par nous, à la maison": ["Tested by us, at home", "Von uns zu Hause getestet", "Testato da noi, a casa", "Probado por nosotros, en casa"],
+  "Imprimer la fiche": ["Print the guide", "Anleitung drucken", "Stampa la scheda", "Imprimir la ficha"],
+  "WhatsApp": ["WhatsApp", "WhatsApp", "WhatsApp", "WhatsApp"],
+  "Épingler": ["Pin it", "Pinnen", "Salva su Pinterest", "Guardar en Pinterest"],
+  "Partager le lien": ["Share link", "Link teilen", "Condividi il link", "Compartir enlace"],
+  "Lien copié": ["Link copied", "Link kopiert", "Link copiato", "Enlace copiado"],
   "Mes badges": ["My badges", "Meine Abzeichen", "I miei badge", "Mis insignias"],
   "Premier tampon": ["First stamp", "Erster Stempel", "Primo timbro", "Primer sello"],
   "Mains agiles": ["Nimble hands", "Flinke Hände", "Mani agili", "Manos ágiles"],
@@ -5915,7 +5980,7 @@ function renderHome() {
     ${topbar()}
     <section class="hero-home">
       <div class="copy">
-        <span class="tag">${t("Pour les 3 – 10 ans · testé et vérifié")}</span>
+        <span class="tag">${t("Pour les 2 – 10 ans · fiches vérifiées")}</span>
         <h1>${titre}</h1>
         <p class="lead">${t("Des idées de bricolage, de pliage et de petites expériences, avec du matériel qu'on a déjà dans les placards. Chaque fiche dit quoi préparer, comment faire, et quoi faire quand ça rate.")}</p>
         <div class="cta-row">
@@ -5984,6 +6049,8 @@ function renderActivity(a0) {
         <div class="facts-row">${a0.faits.map(f => `<div class="fact"><span class="label">${esc(t(f[0]))}</span><strong>${esc(t(f[1]))}</strong></div>`).join("")}</div>
         ${m.skills.length ? `<div class="skills"><span class="label">${t("Ça fait travailler")}</span>${m.skills.map(s => `<span class="skill">${esc(t(s))}</span>`).join("")}</div>` : ""}
         <p class="note">${esc(t("Âge : {a}.", { a: a.age }))}</p>
+        ${a0.teste ? `<p class="teste">✓ ${t("Testé par nous, à la maison")}</p>` : ""}
+        <div class="share-row">${shareButtons(a)}<button class="btn small ghost" id="print">🖨 ${t("Imprimer la fiche")}</button></div>
       </div>
     </section>
     <nav class="tabs" role="tablist">
@@ -6014,6 +6081,8 @@ function renderActivity(a0) {
   bindTopbar();
   $("#back").onclick = () => go("");
   $("#other").onclick = () => surprise(a.id);
+  $("#print").onclick = () => imprimer(a);
+  document.querySelectorAll("[data-copy]").forEach(b => b.onclick = async () => { try { if (navigator.share) { await navigator.share({ title: a.titre, text: a.accroche, url: b.dataset.copy }); return; } await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "✓ " + t("Lien copié"); } catch (e) {} });
   $("#done").onclick = () => { toggleDone(a.id); renderActivity(a0); if (isDone(a.id)) feterNouveauxBadges(); };
   if ($("#gold-ok")) $("#gold-ok").onclick = () => {
     if (checkGold(a.id, $("#gold-code").value)) { renderActivity(a0); feterNouveauxBadges(); }
