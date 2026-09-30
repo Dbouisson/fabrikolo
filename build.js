@@ -242,6 +242,8 @@ write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
 ${urls.map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join("\n")}
 </urlset>
 `);
+// Clé IndexNow (Bing, Yandex, Seznam…) : prouve que les signalements de pages viennent bien du site
+if (cfg.indexNowKey) write(`${cfg.indexNowKey}.txt`, cfg.indexNowKey);
 write("robots.txt", `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
 
 console.log(`OK : ${ACTIVITIES.length} activités × ${LANGS.length} langues, ${urls.length} pages dans le plan du site, sortie dans dist/`);
