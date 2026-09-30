@@ -54,6 +54,7 @@ function page({ title, description, url, start, lang = "fr", alt = "", image = "
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
+${cfg.googleVerification ? `<meta name="google-site-verification" content="${esc(cfg.googleVerification)}">` : ""}
 <link rel="canonical" href="${esc(url)}">
 ${alt}<meta property="og:type" content="website">
 <meta property="og:site_name" content="${esc(cfg.nomSite)}">
