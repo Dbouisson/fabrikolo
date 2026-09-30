@@ -1,0 +1,27 @@
+{
+  "nomSite": "Fabrikolo",
+  "domaine": "https://www.fabrikolo.com",
+  "description": "Activités créatives pour les 3 – 10 ans, testées et vérifiées : bricolage, pliage, petites expériences, avec du matériel de placard.",
+  "newsletterAction": "",
+  "cloudflareAnalyticsToken": "",
+  "editeur": {
+    "nom": "David Bouisson",
+    "contact": "bouitique@gmail.com"
+  },
+  "hebergeur": {
+    "nom": "Cloudflare, Inc.",
+    "adresse": "101 Townsend Street, San Francisco, CA 94107, États-Unis",
+    "site": "https://www.cloudflare.com"
+  },
+  "affiliationActive": false,
+  "contributionFormUrl": "",
+  "galerie": [],
+  "concours": {
+    "actif": false,
+    "titre": "Le coup de cœur du mois",
+    "lot": "À gagner : la photo à la une de l'accueil et un diplôme de petit artiste personnalisé à imprimer.",
+    "dateDebut": "1er novembre 2026",
+    "dateFin": "30 novembre 2026, 23 h 59"
+  },
+  "codeDore": ""
+}
