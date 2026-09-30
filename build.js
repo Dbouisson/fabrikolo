@@ -119,7 +119,7 @@ const legal = `<!doctype html>
 <p>Le site ne dépose pas de cookie publicitaire.</p>
 <p>Les cases cochées, le suivi du séchage et le carnet de tampons sont enregistrés uniquement dans le navigateur du visiteur (stockage local), jamais envoyés ailleurs. Ils s'effacent en vidant les données du site.</p>
 ${cfg.cloudflareAnalyticsToken ? "<p>La fréquentation est mesurée avec Cloudflare Web Analytics, sans cookie et sans suivi individuel.</p>" : ""}
-${cfg.newsletterAction ? "<p>L'adresse e-mail donnée pour la newsletter sert uniquement à l'envoi de la newsletter du lundi. Chaque envoi contient un lien de désinscription.</p>" : ""}
+${cfg.newsletterAction ? "<p>L'adresse e-mail donnée pour la newsletter sert uniquement à l'envoi de la newsletter du lundi. Elle est enregistrée chez Brevo (Sendinblue SAS, France), le service d'envoi utilisé par le site, après confirmation par e-mail (double inscription). Chaque envoi contient un lien de désinscription. Pour faire supprimer votre adresse, écrivez à l'adresse de contact ci-dessus.</p>" : ""}
 </section>
 ${cfg.affiliationActive ? `<section><h2>Liens affiliés</h2><p>Certains liens vers du matériel sont des liens affiliés : l'éditeur touche une petite commission sur les achats, sans aucun surcoût pour vous. En tant que Partenaire Amazon, l'éditeur réalise un bénéfice sur les achats remplissant les conditions requises.</p></section>` : ""}
 </main></body></html>

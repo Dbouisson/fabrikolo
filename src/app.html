@@ -5429,6 +5429,10 @@ const UI = {
   "Chaque lundi, une activité pour le mercredi, avec la liste du matériel à préparer. Désinscription en un clic.": ["Every Monday, one activity for midweek, with the list of materials to get ready. Unsubscribe in one click.", "Jeden Montag eine Aktivität für die Wochenmitte, mit Materialliste. Abmeldung mit einem Klick.", "Ogni lunedì un'attività per metà settimana, con la lista dei materiali. Disiscrizione in un clic.", "Cada lunes, una actividad para mitad de semana, con la lista de materiales. Baja en un clic."],
   "Ton adresse e-mail": ["Your email address", "Deine E-Mail-Adresse", "Il tuo indirizzo e-mail", "Tu correo electrónico"],
   "Je m'inscris": ["Sign me up", "Anmelden", "Iscrivimi", "Me apunto"],
+  "J'accepte de recevoir la newsletter de Fabrikolo. Désinscription possible à tout moment.": ["I agree to receive the Fabrikolo newsletter. You can unsubscribe at any time.", "Ich möchte den Fabrikolo-Newsletter erhalten. Abmeldung jederzeit möglich.", "Accetto di ricevere la newsletter di Fabrikolo. Posso disiscrivermi in qualsiasi momento.", "Acepto recibir la newsletter de Fabrikolo. Puedo darme de baja en cualquier momento."],
+  "Confidentialité": ["Privacy", "Datenschutz", "Privacy", "Privacidad"],
+  "Merci ! Un e-mail de confirmation vient de partir : clique sur le lien qu'il contient pour valider ton inscription.": ["Thank you! A confirmation email is on its way: click the link inside to confirm your sign-up.", "Danke! Eine Bestätigungs-E-Mail ist unterwegs: Klicke auf den Link darin, um deine Anmeldung zu bestätigen.", "Grazie! Ti abbiamo inviato un'e-mail di conferma: clicca sul link per completare l'iscrizione.", "¡Gracias! Te hemos enviado un correo de confirmación: haz clic en el enlace para validar tu inscripción."],
+  "L'inscription n'a pas pu aboutir. Vérifie l'adresse et réessaie.": ["The sign-up didn't go through. Check the address and try again.", "Die Anmeldung hat nicht geklappt. Prüfe die Adresse und versuche es noch einmal.", "L'iscrizione non è andata a buon fine. Controlla l'indirizzo e riprova.", "La inscripción no se ha podido completar. Revisa la dirección e inténtalo de nuevo."],
   "Inscriptions très bientôt.": ["Sign-ups opening very soon.", "Anmeldung bald möglich.", "Iscrizioni a breve.", "Inscripciones muy pronto."],
   "📸 Montre ta réalisation": ["📸 Show us what you made", "📸 Zeig dein Werk", "📸 Mostra il tuo lavoretto", "📸 Enséñanos tu creación"],
   "📸 Envoyer ma photo": ["📸 Send my photo", "📸 Foto senden", "📸 Invia la mia foto", "📸 Enviar mi foto"],
@@ -5674,14 +5678,35 @@ function newsletterBlock() {
   return `<section class="carnet news" aria-label="${t("Newsletter du lundi")}" style="background:color-mix(in srgb, var(--sky) 14%, white)">
     <div class="row"><h3>${t("📬 La newsletter du lundi")}</h3><span class="label">${t("Gratuite · 1 idée par semaine")}</span></div>
     <p class="note">${t("Chaque lundi, une activité pour le mercredi, avec la liste du matériel à préparer. Désinscription en un clic.")}</p>
-    ${on ? `<form class="row" method="POST" action="${esc(SITE.newsletterAction)}" target="_blank">
+    ${on ? `<form class="row" id="nl-form" method="POST" action="${esc(SITE.newsletterAction)}" target="_blank" style="flex-wrap:wrap">
       <label class="label" for="nl-email" style="flex-basis:100%">${t("Ton adresse e-mail")}</label>
-      <input id="nl-email" name="EMAIL" type="email" required placeholder="prenom@exemple.fr" style="flex:1 1 220px;min-width:0;font:inherit;padding:10px 14px;border:2.5px solid var(--line);border-radius:999px">
-      <input type="hidden" name="LANGUE" value="${LANG}">
+      <input id="nl-email" name="EMAIL" type="email" required autocomplete="email" placeholder="prenom@exemple.fr" style="flex:1 1 220px;min-width:0;font:inherit;padding:10px 14px;border:2.5px solid var(--line);border-radius:999px">
       <button class="btn blue" type="submit">${t("Je m'inscris")}</button>
+      <label style="flex-basis:100%;display:flex;gap:8px;align-items:flex-start;font-size:15px"><input type="checkbox" name="OPT_IN" value="1" required style="margin-top:4px"> <span>${t("J'accepte de recevoir la newsletter de Fabrikolo. Désinscription possible à tout moment.")} <a href="/mentions-legales/">${t("Confidentialité")}</a></span></label>
+      <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <input type="hidden" name="locale" value="${LANG === "fr" ? "fr" : LANG === "de" ? "de" : LANG === "it" ? "it" : LANG === "es" ? "es" : "en"}">
+      <p class="note" id="nl-msg" role="status" style="flex-basis:100%;margin:0"></p>
     </form>` : `<p><strong>${t("Inscriptions très bientôt.")}</strong></p>`}
   </section>`;
 }
+/* Inscription à la newsletter : envoi direct à Brevo, sans quitter la page (retour au formulaire classique en cas d'échec) */
+document.addEventListener("submit", async e => {
+  const f = e.target;
+  if (f.id !== "nl-form") return;
+  e.preventDefault();
+  const msg = $("#nl-msg"), btn = f.querySelector("button");
+  btn.disabled = true;
+  try {
+    const r = await fetch(f.action + (f.action.includes("?") ? "&" : "?") + "isAjax=1", { method: "POST", body: new FormData(f) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || j.success === false) throw new Error("refus");
+    f.querySelectorAll("input,button").forEach(x => x.disabled = true);
+    msg.innerHTML = `<strong>${t("Merci ! Un e-mail de confirmation vient de partir : clique sur le lien qu'il contient pour valider ton inscription.")}</strong>`;
+  } catch (err) {
+    btn.disabled = false;
+    msg.textContent = t("L'inscription n'a pas pu aboutir. Vérifie l'adresse et réessaie.");
+  }
+});
 /* Galerie des réalisations et concours (alimentés par config.json sur le site public) */
 const GALERIE = (SITE && SITE.galerie) || [];
 const CONTRIB = (SITE && SITE.contributionFormUrl) || "";
