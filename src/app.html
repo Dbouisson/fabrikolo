@@ -277,7 +277,7 @@ td:first-child { font-weight: 800; }
 
 <script>
 /* ---------- Données : une activité = un objet. Ajouter une fiche = ajouter un objet. ---------- */
-const UPDATED = "30 septembre 2026";
+const UPDATED = "2 octobre 2026";
 const ACTIVITIES = [
   {
     id: "vitraux",
@@ -2631,6 +2631,53 @@ const ACTIVITIES = [
     sources: [
       ["Vidéo d'origine : klkm_family (Instagram)", "https://www.instagram.com/reel/Dd4XvV_Il8U/"]
     ]
+  },
+  {
+    id: "fantomes-fenetre",
+    nouveau: "2026-10-02",
+    titre: "Fantômes rigolos pour la fenêtre",
+    accroche: "De la colle blanche, une goutte de liquide vaisselle et deux yeux mobiles : des petits fantômes qui se collent sur la vitre et se décollent sans laisser de trace.",
+    saisons: ["Automne"],
+    categorie: "Bricolage",
+    couleur: "var(--lilac)",
+    age: "Dès 4 ans avec un adulte, seul dès 7 ans",
+    ageMin: 4,
+    faits: [["Préparation", "10 min"], ["Activité", "20 min"], ["Séchage", "24 à 48 h"], ["Coût", "Placards"]],
+    materiel: [
+      ["Colle blanche vinylique liquide (colle scolaire)", "Pas de colle en bâton."],
+      ["Liquide vaisselle", "Transparent de préférence."],
+      ["Un peu de peinture blanche ou de colorant", "Facultatif : la colle sèche blanche translucide, ce qui fait déjà très fantôme."],
+      ["Des yeux mobiles", "Ou un feutre noir permanent, utilisé par l'adulte."],
+      ["Une pochette plastique transparente", "C'est le support de séchage."],
+      ["Des modèles de fantômes dessinés sur papier", "À glisser dans la pochette pour suivre le contour."],
+      ["Un pinceau ou une petite cuillère", ""]
+    ],
+    melange: { base: [["Colle", 2, "c. à café"], ["Liquide vaisselle", 1, "c. à café"], ["Colorant", 2, "gouttes"]], repos: 180 },
+    sechage: [24, 48],
+    seances: [
+      { titre: "Séance 1 · peindre les fantômes", etapes: [
+        "Dessinez quelques fantômes simples (tête ronde, bas en vagues, 6 à 8 cm) et glissez la feuille dans la pochette plastique.",
+        "Mélangez 2 volumes de colle pour 1 volume de liquide vaisselle, et un peu de blanc si vous voulez des fantômes bien opaques. Laissez reposer 3 minutes.",
+        "Avec le pinceau, faites d'abord le contour du fantôme sur la pochette, puis remplissez l'intérieur en couche épaisse et régulière.",
+        "Posez les yeux mobiles tout de suite, pendant que la colle est encore humide : ils resteront pris dedans.",
+        "Laissez sécher à plat, loin du chauffage, 24 à 48 h."
+      ]},
+      { titre: "Séance 2 · décoller et coller", etapes: [
+        "Quand les fantômes sont transparents au centre et ne collent plus au doigt, décollez-les doucement de la pochette.",
+        "Appuyez-les sur une vitre propre : ils tiennent tout seuls.",
+        "Pour les ranger après Halloween, recollez-les sur la pochette."
+      ]}
+    ],
+    variante: "Même recette avec de l'orange pour des citrouilles ou du vert pour des monstres. Les feuilles d'automne de la fiche « Vitraux repositionnables » utilisent exactement le même mélange.",
+    depannage: [
+      ["Le fantôme se déchire au décollage", "Couche trop fine ou pas sèche", "Attendre encore, ou repeindre une couche par-dessus."],
+      ["Les yeux tombent", "Posés sur une colle déjà sèche", "Un point de colle sous chaque œil."],
+      ["Il ne tient pas sur la vitre", "Vitre sale ou froide", "Nettoyer la vitre et appuyer bien à plat."]
+    ],
+    securite: ["La colle scolaire n'est pas dangereuse, mais ne se mange pas.", "Les yeux mobiles sont de petites pièces : à garder loin des moins de 3 ans."],
+    sources: [
+      ["Vidéo d'origine : lecoq.family (Instagram)", "https://www.instagram.com/reel/DdmPOsAIcuZ/"]
+    ]
   }
 ];
 
@@ -3156,6 +3203,13 @@ function zombieHandSVG() {
 }
 Object.assign(ART, { "main-zombie": zombieHandSVG });
 Object.assign(META, { "main-zombie": { niveau: 1, skills: ["Sciences : acide et base", "Observer", "Patience"] } });
+/* ---------- Illustration : fantômes pour la fenêtre (dessin original) ---------- */
+function windowGhostsSVG() {
+  const g = (x, y, s, r) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M-22 26 C-24 -6 -16 -26 0 -26 C16 -26 24 -6 22 26 C16 20 12 30 6 22 C2 30 -4 30 -8 22 C-12 30 -18 20 -22 26 Z" fill="#FFFFFF" fill-opacity=".85" stroke="#C9D2FF" stroke-width="2.5"/><circle cx="-7" cy="-6" r="6" fill="#fff" stroke="${INK}" stroke-width="2"/><circle cx="7" cy="-6" r="6" fill="#fff" stroke="${INK}" stroke-width="2"/><circle cx="-6" cy="-4" r="3" fill="${INK}"/><circle cx="8" cy="-7" r="3" fill="${INK}"/><ellipse cx="0" cy="8" rx="4" ry="5" fill="${INK}"/></g>`;
+  return svgWrap("Fenêtre décorée de petits fantômes en colle aux yeux mobiles", `<rect x="20" y="16" width="160" height="168" rx="10" fill="#8B5A2B" stroke="${INK}" stroke-width="3"/><rect x="30" y="26" width="66" height="72" fill="#2C2F5E"/><rect x="104" y="26" width="66" height="72" fill="#2C2F5E"/><rect x="30" y="106" width="66" height="68" fill="#2C2F5E"/><rect x="104" y="106" width="66" height="68" fill="#2C2F5E"/><circle cx="150" cy="44" r="10" fill="#FFE27A"/>${g(62, 64, 1, -8)}${g(136, 140, .9, 10)}${g(64, 142, .75, 6)}<path d="M112 60 l40 -26" stroke="#fff" stroke-width="3" opacity=".25"/>`);
+}
+Object.assign(ART, { "fantomes-fenetre": windowGhostsSVG });
+Object.assign(META, { "fantomes-fenetre": { niveau: 2, skills: ["Doser", "Patience", "Précision"] } });
 
 const meta = a => META[a.id] || { niveau: 1, skills: [] };
 const dots = n => `<span class="dots" aria-hidden="true">${"●".repeat(n)}${"○".repeat(3 - n)}</span>`;
@@ -3306,7 +3360,7 @@ const ICON = {
 const CATS = [["Toutes", () => true], ["Automne & Halloween", a => a.saisons.includes("Automne")], ["Noël & hiver", a => a.saisons.includes("Hiver")], ["Bricolage", a => ["Bricolage", "Modelage"].includes(a.categorie)], ["Sciences & nature", a => ["Jeu & sciences", "Nature"].includes(a.categorie)], ["Peinture & dessin", a => ["Peinture", "Dessin"].includes(a.categorie)], ["Pliage", a => a.categorie === "Pliage"], ["Cuisine & jeux", a => ["Cuisine", "Jeu"].includes(a.categorie)], ["Sans attente", a => !a.sechage], ["Tout-petits", a => a.ageMin <= 3]];
 /* ---------- Le moment de l'année : la page d'accueil suit le calendrier ----------
    Chaque période met en avant ses activités. Pour tester une autre date : ajouter ?date=2026-12-10 à l'adresse. */
-const HALLOWEEN_IDS = ["main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
+const HALLOWEEN_IDS = ["fantomes-fenetre", "main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
 const NOEL_IDS = ["calendrier-avent", "carte-pop-up", "flocons-papier", "pate-a-sel", "carte-a-gratter", "mangeoire"];
 const PAQUES_IDS = ["lapin-rouleau", "chocolats-paques", "coquetiers-lapins", "lapins-paillettes", "chasse-lapins-mousse", "guirlande-poules", "carottes-surprises", "carte-a-gratter"];
 const ETE_IDS = ["bracelets-bouteille", "bulles-geantes", "flotte-coule", "volcan", "eruptions-arc-en-ciel", "pate-a-patouille", "eau-qui-marche", "montgolfiere"];
@@ -5632,6 +5686,54 @@ Object.assign(TRAD.es, {
   variante: "Sin tierra, sobre la mesa: bicarbonato en el guante, vinagre en una botella, se coloca el guante en el cuello de la botella y se levanta de golpe. Más rápido, pero con menos suspense.",
   depannage: [["El guante no se infla", "El gas se escapa por la cinta", "Volver a sujetarlo con más vueltas de cinta adhesiva."], ["La mano se queda bajo tierra", "Demasiada tierra o tierra demasiado pesada", "Menos tierra, sustrato ligero, sin apretar."], ["Hace espuma pero no sale nada", "No llega suficiente vinagre a los agujeritos", "Echar más vinagre, cerca del vaso."]],
   securite: ["El vinagre pica en los ojos: no nos asomamos a la maceta durante la reacción, y nos lavamos las manos después.", "Cuidado con la alergia al látex: usad un guante de nitrilo.", "El lápiz para agujerear lo maneja el adulto."]
+}
+});
+Object.assign(TRAD.en, {
+"fantomes-fenetre": {
+  titre: "Funny window ghosts",
+  accroche: "White glue, a drop of washing-up liquid and a pair of googly eyes: little ghosts that cling to the window and peel off again without leaving a mark.",
+  age: "age 4+ with a grown-up, on their own from age 7",
+  materiel: [["Liquid white PVA glue (school glue)", "Not a glue stick."], ["Washing-up liquid", "Clear if possible."], ["A little white paint or food colouring", "Optional: the glue dries a translucent white, which already looks very ghostly."], ["Googly eyes", "Or a black permanent marker, used by the grown-up."], ["A clear plastic punched pocket", "This is what they dry on."], ["Ghost templates drawn on paper", "Slide them into the pocket to trace round the outline."], ["A paintbrush or a teaspoon", ""]],
+  seances: [{ titre: "Session 1 · paint the ghosts", etapes: ["Draw a few simple ghosts (round head, wavy bottom, 6 to 8 cm) and slide the sheet into the plastic pocket.", "Mix 2 parts glue to 1 part washing-up liquid, plus a little white if you want nice solid ghosts. Leave it to rest for 3 minutes.", "With the brush, go round the outline of the ghost on the pocket first, then fill in the inside with a thick, even layer.", "Put the googly eyes on straight away, while the glue is still wet: they'll stay stuck in it.", "Leave to dry flat, away from the radiator, for 24 to 48 hours."] }, { titre: "Session 2 · peel and stick", etapes: ["When the ghosts are see-through in the middle and no longer sticky to the touch, peel them gently off the pocket.", "Press them onto a clean window: they stay up all by themselves.", "To put them away after Halloween, stick them back onto the pocket."] }],
+  variante: "Same recipe with orange for pumpkins or green for monsters. The autumn leaves in the “Peel-off window stickers” activity use exactly the same mixture.",
+  depannage: [["The ghost tears when you peel it off", "Layer too thin or not dry", "Wait a bit longer, or paint another layer on top."], ["The eyes fall off", "Put on when the glue was already dry", "A dot of glue under each eye."], ["It won't stay on the window", "Window dirty or cold", "Clean the window and press it down nice and flat."]],
+  securite: ["School glue isn't dangerous, but it's not for eating.", "Googly eyes are small parts: keep them away from children under 3."]
+}
+});
+Object.assign(TRAD.de, {
+"fantomes-fenetre": {
+  titre: "Lustige Gespenster fürs Fenster",
+  accroche: "Weißer Bastelkleber, ein Tropfen Spülmittel und zwei Wackelaugen: kleine Gespenster, die an der Scheibe haften und sich spurlos wieder abziehen lassen.",
+  age: "ab 4 Jahren mit einem Erwachsenen, allein ab 7 Jahren",
+  materiel: [["Flüssiger weißer Bastelkleber (Schulkleber)", "Kein Klebestift."], ["Spülmittel", "Am besten farblos."], ["Etwas weiße Farbe oder Lebensmittelfarbe", "Freiwillig: Der Kleber trocknet weiß durchscheinend, das sieht schon sehr gespenstisch aus."], ["Wackelaugen", "Oder ein schwarzer Permanentmarker, den der Erwachsene benutzt."], ["Eine durchsichtige Klarsichthülle", "Darauf trocknen die Gespenster."], ["Auf Papier gezeichnete Gespenstervorlagen", "In die Hülle schieben, um den Umriss nachzufahren."], ["Ein Pinsel oder ein Teelöffel", ""]],
+  seances: [{ titre: "Teil 1 · die Gespenster malen", etapes: ["Ein paar einfache Gespenster zeichnen (runder Kopf, gewellter unterer Rand, 6 bis 8 cm) und das Blatt in die Klarsichthülle schieben.", "2 Teile Kleber mit 1 Teil Spülmittel mischen, dazu etwas Weiß, wenn die Gespenster schön deckend werden sollen. 3 Minuten ruhen lassen.", "Mit dem Pinsel zuerst den Umriss des Gespensts auf der Hülle nachmalen, dann die Fläche dick und gleichmäßig ausfüllen.", "Die Wackelaugen sofort aufsetzen, solange der Kleber noch feucht ist: So bleiben sie darin haften.", "Flach liegend, nicht in der Nähe der Heizung, 24 bis 48 Stunden trocknen lassen."] }, { titre: "Teil 2 · abziehen und ankleben", etapes: ["Wenn die Gespenster in der Mitte durchsichtig sind und nicht mehr am Finger kleben, vorsichtig von der Hülle abziehen.", "Auf eine saubere Fensterscheibe drücken: Sie halten ganz von allein.", "Zum Aufbewahren nach Halloween einfach wieder auf die Hülle kleben."] }],
+  variante: "Dasselbe Rezept mit Orange für Kürbisse oder mit Grün für Monster. Die Herbstblätter aus der Anleitung „Fensterbilder zum Abziehen“ verwenden genau dieselbe Mischung.",
+  depannage: [["Das Gespenst reißt beim Abziehen", "Schicht zu dünn oder nicht trocken", "Noch warten oder eine weitere Schicht darübermalen."], ["Die Augen fallen ab", "Auf schon getrockneten Kleber gesetzt", "Ein Klebepunkt unter jedes Auge."], ["Es hält nicht an der Scheibe", "Scheibe schmutzig oder kalt", "Die Scheibe putzen und das Gespenst gut flach andrücken."]],
+  securite: ["Schulkleber ist nicht gefährlich, aber nicht zum Essen da.", "Wackelaugen sind Kleinteile: von Kindern unter 3 Jahren fernhalten."]
+}
+});
+Object.assign(TRAD.it, {
+"fantomes-fenetre": {
+  titre: "Fantasmini buffi per la finestra",
+  accroche: "Colla vinilica bianca, una goccia di detersivo per i piatti e due occhietti mobili: piccoli fantasmi che si attaccano al vetro e si staccano senza lasciare traccia.",
+  age: "dai 4 anni con un adulto, da soli dai 7 anni",
+  materiel: [["Colla vinilica bianca liquida (colla scolastica)", "Non la colla stick."], ["Detersivo per i piatti", "Meglio se trasparente."], ["Un po' di tempera bianca o di colorante", "Facoltativo: la colla asciuga bianca e traslucida, che fa già molto fantasma."], ["Occhietti mobili", "Oppure un pennarello nero indelebile, usato dall'adulto."], ["Una busta di plastica trasparente", "È il supporto su cui asciugano."], ["Dei modelli di fantasmi disegnati su carta", "Da infilare nella busta per seguire il contorno."], ["Un pennello o un cucchiaino", ""]],
+  seances: [{ titre: "Prima parte · dipingere i fantasmi", etapes: ["Disegnate qualche fantasma semplice (testa tonda, fondo a onde, 6-8 cm) e infilate il foglio nella busta di plastica.", "Mescolate 2 parti di colla con 1 parte di detersivo, più un po' di bianco se volete fantasmi ben coprenti. Lasciate riposare 3 minuti.", "Con il pennello fate prima il contorno del fantasma sulla busta, poi riempite l'interno con uno strato spesso e uniforme.", "Mettete subito gli occhietti mobili, finché la colla è ancora umida: resteranno incastrati dentro.", "Lasciate asciugare in piano, lontano dal termosifone, per 24-48 ore."] }, { titre: "Seconda parte · staccare e attaccare", etapes: ["Quando i fantasmi sono trasparenti al centro e non si attaccano più alle dita, staccateli delicatamente dalla busta.", "Premeteli su un vetro pulito: restano su da soli.", "Per metterli via dopo Halloween, riattaccateli sulla busta."] }],
+  variante: "Stessa ricetta con l'arancione per le zucche o il verde per i mostri. Le foglie d'autunno della scheda “Vetrofanie staccabili” usano esattamente lo stesso miscuglio.",
+  depannage: [["Il fantasma si strappa quando lo staccate", "Strato troppo sottile o non asciutto", "Aspettate ancora, oppure ridipingete uno strato sopra."], ["Gli occhietti cadono", "Messi su colla già asciutta", "Un puntino di colla sotto ogni occhio."], ["Non sta attaccato al vetro", "Vetro sporco o freddo", "Pulite il vetro e premete bene in piano."]],
+  securite: ["La colla scolastica non è pericolosa, ma non si mangia.", "Gli occhietti mobili sono pezzi piccoli: da tenere lontano dai bambini sotto i 3 anni."]
+}
+});
+Object.assign(TRAD.es, {
+"fantomes-fenetre": {
+  titre: "Fantasmas divertidos para la ventana",
+  accroche: "Cola blanca, una gota de lavavajillas y dos ojos móviles: fantasmitas que se pegan al cristal y se despegan sin dejar rastro.",
+  age: "a partir de 4 años con un adulto, solos a partir de 7 años",
+  materiel: [["Cola blanca líquida (cola escolar)", "Nada de pegamento en barra."], ["Lavavajillas", "Mejor si es transparente."], ["Un poco de pintura blanca o de colorante", "Opcional: la cola se seca de un blanco translúcido, que ya parece muy de fantasma."], ["Ojos móviles", "O un rotulador negro permanente, que usa el adulto."], ["Una funda de plástico transparente", "Es donde se secan."], ["Unos modelos de fantasmas dibujados en papel", "Para meterlos en la funda y seguir el contorno."], ["Un pincel o una cucharilla", ""]],
+  seances: [{ titre: "Sesión 1 · pintar los fantasmas", etapes: ["Dibujad algunos fantasmas sencillos (cabeza redonda, parte de abajo ondulada, de 6 a 8 cm) y meted la hoja en la funda de plástico.", "Mezclad 2 partes de cola con 1 parte de lavavajillas, y un poco de blanco si queréis fantasmas bien opacos. Dejad reposar 3 minutos.", "Con el pincel, haced primero el contorno del fantasma sobre la funda y luego rellenad el interior con una capa gruesa y uniforme.", "Poned los ojos móviles enseguida, mientras la cola sigue húmeda: se quedarán atrapados dentro.", "Dejad secar en plano, lejos de la calefacción, de 24 a 48 horas."] }, { titre: "Sesión 2 · despegar y pegar", etapes: ["Cuando los fantasmas estén transparentes en el centro y ya no se peguen al dedo, despegadlos con cuidado de la funda.", "Apretadlos contra un cristal limpio: se sujetan solos.", "Para guardarlos después de Halloween, volved a pegarlos en la funda."] }],
+  variante: "La misma receta con naranja para hacer calabazas o con verde para monstruos. Las hojas de otoño de la ficha «Vidrieras despegables» usan exactamente la misma mezcla.",
+  depannage: [["El fantasma se rompe al despegarlo", "Capa demasiado fina o sin secar", "Esperar más, o pintar otra capa por encima."], ["Los ojos se caen", "Puestos sobre cola ya seca", "Un punto de cola debajo de cada ojo."], ["No se sujeta en el cristal", "Cristal sucio o frío", "Limpiar el cristal y apretar bien en plano."]],
+  securite: ["La cola escolar no es peligrosa, pero no se come.", "Los ojos móviles son piezas pequeñas: mantenedlos lejos de los menores de 3 años."]
 }
 });
 /* ---------- Langues : interface (français → anglais, allemand, italien, espagnol) ---------- */
