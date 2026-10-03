@@ -277,7 +277,7 @@ td:first-child { font-weight: 800; }
 
 <script>
 /* ---------- Données : une activité = un objet. Ajouter une fiche = ajouter un objet. ---------- */
-const UPDATED = "2 octobre 2026";
+const UPDATED = "3 octobre 2026";
 const ACTIVITIES = [
   {
     id: "vitraux",
@@ -2694,6 +2694,53 @@ const ACTIVITIES = [
       ["Épisode 2 (citrouilles) : lecoq.family (Instagram)", "https://www.instagram.com/reel/Ddt8yaBIGlB/"],
       ["Épisode 3 (chat, chauves-souris, lune) : lecoq.family (Instagram)", "https://www.instagram.com/reel/DdwhlmWI6qV/"]
     ]
+  },
+  {
+    id: "fantomes-spirale",
+    nouveau: "2026-10-03",
+    titre: "Fantômes en spirale à suspendre",
+    accroche: "Un rond de papier découpé en spirale, une tête de fantôme au centre : une fois suspendu, il se déroule en une longue queue qui tournoie au moindre courant d'air.",
+    saisons: ["Automne"],
+    categorie: "Bricolage",
+    couleur: "var(--sky)",
+    age: "Dès 5 ans ; l'adulte aide pour la spirale",
+    ageMin: 5,
+    faits: [["Préparation", "5 min"], ["Activité", "20 min"], ["Séchage", "Aucun"], ["Coût", "Placards"]],
+    materiel: [
+      ["Du papier blanc épais ou du carton fin", "Format A4 : un fantôme par feuille. Du papier trop fin pendouille sans tourner."],
+      ["Une assiette ou un grand bol (20 cm environ)", "Pour tracer le rond."],
+      ["Un crayon, une gomme et des ciseaux", ""],
+      ["Un feutre noir", "Pour les yeux et la bouche."],
+      ["Du fil blanc ou du fil de pêche", "Pour suspendre."],
+      ["Du ruban adhésif ou une aiguille, pour l'adulte", "Pour accrocher le fil."]
+    ],
+    seances: [
+      { titre: "Tracer et découper", etapes: [
+        "Tracez un grand rond autour de l'assiette sur la feuille.",
+        "Au centre du rond, dessinez une petite tête de fantôme d'environ 6 cm, avec ses deux bras levés.",
+        "Partez du bord du rond et dessinez une spirale qui tourne vers l'intérieur jusqu'à la tête, en gardant une bande d'environ 2 cm de large.",
+        "Découpez le rond, puis suivez la spirale aux ciseaux, tour après tour, jusqu'au fantôme : l'adulte aide pour les virages serrés.",
+        "Découpez le contour de la tête et des bras, sans couper la bande qui y est attachée."
+      ]},
+      { titre: "Décorer et suspendre", etapes: [
+        "Dessinez au feutre noir deux yeux ovales et une bouche en O sur la tête.",
+        "Effacez les traits de crayon qui se voient encore.",
+        "L'adulte fixe un fil sur le haut de la tête, avec un petit morceau de ruban adhésif au dos ou un point d'aiguille.",
+        "Suspendez le fantôme au plafond ou à une fenêtre : la spirale se déroule en une longue queue.",
+        "Accrochez-en plusieurs à des hauteurs différentes : ils tournent tous au moindre courant d'air."
+      ]}
+    ],
+    science: "Le savais-tu ? La spirale tourne parce que l'air chaud monte : près d'un radiateur ou d'une lampe, l'air qui s'élève pousse sur la bande inclinée et fait tourner le fantôme, comme une petite hélice.",
+    variante: "Même technique pour un serpent (tête de serpent au centre, bande à écailles), une chauve-souris noire ou un dragon. Avec du papier calque, les fantômes deviennent transparents devant une fenêtre.",
+    depannage: [
+      ["Le fantôme se casse au niveau du cou", "Bande trop fine près de la tête", "Garder la bande plus large au départ de la tête, ou renforcer d'un morceau de scotch au dos."],
+      ["La spirale ne se déroule pas bien", "Papier trop épais ou tours trop serrés", "Papier un peu plus fin, tours plus larges."],
+      ["Il ne tourne pas", "Aucun courant d'air", "L'accrocher près d'une fenêtre ou au-dessus d'un radiateur (jamais d'une bougie)."]
+    ],
+    securite: ["Les ciseaux pointus et l'aiguille restent chez l'adulte.", "Ne jamais suspendre de papier au-dessus d'une bougie ou d'une lampe très chaude."],
+    sources: [
+      ["Vidéo d'origine : radhikazart (Instagram)", "https://www.instagram.com/reel/DdPNVmjhfen/"]
+    ]
   }
 ];
 
@@ -3226,6 +3273,15 @@ function windowGhostsSVG() {
 }
 Object.assign(ART, { "fantomes-fenetre": windowGhostsSVG });
 Object.assign(META, { "fantomes-fenetre": { niveau: 2, skills: ["Doser", "Patience", "Précision"] } });
+/* ---------- Illustration : fantômes en spirale (dessin original) ---------- */
+function spiralGhostSVG() {
+  let sp = "";
+  for (let i = 0; i < 4; i++) sp += `<path d="M${-30 + i * 5} ${44 + i * 24} C${-30 + i * 5} ${56 + i * 24} ${30 - i * 5} ${56 + i * 24} ${30 - i * 5} ${44 + i * 24}" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M${30 - i * 5} ${44 + i * 24} C${30 - i * 5} ${36 + i * 24} ${-24 + i * 5} ${50 + i * 24} ${-25 + i * 5} ${68 + i * 24}" fill="none" stroke="#DCE2FF" stroke-width="5" stroke-linecap="round"/>`;
+  const ghost = (x, s, r) => `<g transform="translate(${x} 22) scale(${s}) rotate(${r})"><line x1="0" y1="-30" x2="0" y2="-14" stroke="#C9D2FF" stroke-width="1.5"/>${sp}<path d="M-20 40 C-22 2 -12 -14 0 -14 C12 -14 22 2 20 40 C13 34 8 44 0 37 C-8 44 -13 34 -20 40 Z" fill="#fff" stroke="${INK}" stroke-width="2.5"/><ellipse cx="-7" cy="4" rx="4" ry="5.5" fill="${INK}"/><ellipse cx="7" cy="4" rx="4" ry="5.5" fill="${INK}"/><ellipse cx="0" cy="19" rx="4" ry="5" fill="${INK}"/></g>`;
+  return svgWrap("Fantômes en papier découpés en spirale, suspendus à des fils", `<rect x="10" y="10" width="180" height="180" rx="14" fill="#1E1B33"/>${ghost(60, 1, -5)}${ghost(140, .82, 6)}`);
+}
+Object.assign(ART, { "fantomes-spirale": spiralGhostSVG });
+Object.assign(META, { "fantomes-spirale": { niveau: 2, skills: ["Découper", "Précision", "Sciences : air chaud"] } });
 
 const meta = a => META[a.id] || { niveau: 1, skills: [] };
 const dots = n => `<span class="dots" aria-hidden="true">${"●".repeat(n)}${"○".repeat(3 - n)}</span>`;
@@ -3376,7 +3432,7 @@ const ICON = {
 const CATS = [["Toutes", () => true], ["Automne & Halloween", a => a.saisons.includes("Automne")], ["Noël & hiver", a => a.saisons.includes("Hiver")], ["Bricolage", a => ["Bricolage", "Modelage"].includes(a.categorie)], ["Sciences & nature", a => ["Jeu & sciences", "Nature"].includes(a.categorie)], ["Peinture & dessin", a => ["Peinture", "Dessin"].includes(a.categorie)], ["Pliage", a => a.categorie === "Pliage"], ["Cuisine & jeux", a => ["Cuisine", "Jeu"].includes(a.categorie)], ["Sans attente", a => !a.sechage], ["Tout-petits", a => a.ageMin <= 3]];
 /* ---------- Le moment de l'année : la page d'accueil suit le calendrier ----------
    Chaque période met en avant ses activités. Pour tester une autre date : ajouter ?date=2026-12-10 à l'adresse. */
-const HALLOWEEN_IDS = ["fantomes-fenetre", "main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
+const HALLOWEEN_IDS = ["fantomes-spirale", "fantomes-fenetre", "main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
 const NOEL_IDS = ["calendrier-avent", "carte-pop-up", "flocons-papier", "pate-a-sel", "carte-a-gratter", "mangeoire"];
 const PAQUES_IDS = ["lapin-rouleau", "chocolats-paques", "coquetiers-lapins", "lapins-paillettes", "chasse-lapins-mousse", "guirlande-poules", "carottes-surprises", "carte-a-gratter"];
 const ETE_IDS = ["bracelets-bouteille", "bulles-geantes", "flotte-coule", "volcan", "eruptions-arc-en-ciel", "pate-a-patouille", "eau-qui-marche", "montgolfiere"];
@@ -5750,6 +5806,58 @@ Object.assign(TRAD.es, {
   variante: "Empezad por los fantasmas (un solo color), luego las calabazas, y dejad el nivel 3 para los mayores. Las hojas de otoño de la ficha «Vidrieras despegables» usan exactamente la misma mezcla.",
   depannage: [["El fantasma se rompe al despegarlo", "Capa demasiado fina o sin secar", "Esperar más, o pintar otra capa por encima."], ["Los ojos se caen", "Puestos sobre cola ya seca", "Un punto de cola debajo de cada ojo."], ["No se sujeta en el cristal", "Cristal sucio o frío", "Limpiar el cristal y apretar bien en plano."], ["Los colores se han mezclado", "Segundo color puesto demasiado pronto", "Dejar secar cada color antes de pintar el de al lado."]],
   securite: ["La cola escolar no es peligrosa, pero no se come.", "Los ojos móviles son piezas pequeñas: mantenedlos lejos de los menores de 3 años."]
+}
+});
+Object.assign(TRAD.en, {
+"fantomes-spirale": {
+  titre: "Spiral ghosts to hang up",
+  accroche: "A paper circle cut into a spiral, a ghost's head in the middle: once it's hung up, it unwinds into a long tail that twirls in the slightest draught.",
+  age: "age 5+; a grown-up helps with the spiral",
+  materiel: [["Thick white paper or thin card", "A4 size: one ghost per sheet. Paper that's too thin just droops instead of turning."], ["A plate or a large bowl (about 20 cm)", "To draw round for the circle."], ["A pencil, a rubber and scissors", ""], ["A black felt-tip pen", "For the eyes and mouth."], ["White thread or fishing line", "To hang it up."], ["Sticky tape or a needle, for the grown-up", "To attach the thread."]],
+  seances: [{ titre: "Draw and cut out", etapes: ["Draw a big circle round the plate on the sheet of paper.", "In the middle of the circle, draw a little ghost's head about 6 cm across, with both arms raised.", "Starting from the edge of the circle, draw a spiral that winds inwards to the head, keeping a strip about 2 cm wide.", "Cut out the circle, then follow the spiral with the scissors, round and round, all the way to the ghost: the grown-up helps with the tight bends.", "Cut round the outline of the head and arms, without cutting the strip attached to them."] }, { titre: "Decorate and hang", etapes: ["With the black felt-tip, draw two oval eyes and an O-shaped mouth on the head.", "Rub out any pencil lines that still show.", "The grown-up attaches a thread to the top of the head, with a little piece of sticky tape on the back or a stitch with the needle.", "Hang the ghost from the ceiling or a window: the spiral unwinds into a long tail.", "Hang up several at different heights: they all turn in the slightest draught."] }],
+  science: "Did you know? The spiral turns because warm air rises: near a radiator or a lamp, the rising air pushes on the sloping strip and makes the ghost spin, like a little propeller.",
+  variante: "Same technique for a snake (snake's head in the middle, scaly strip), a black bat or a dragon. With tracing paper, the ghosts turn see-through against a window.",
+  depannage: [["The ghost breaks at the neck", "Strip too thin near the head", "Keep the strip wider where it joins the head, or strengthen it with a piece of sticky tape on the back."], ["The spiral doesn't unwind properly", "Paper too thick or turns too tight", "Slightly thinner paper, wider turns."], ["It doesn't turn", "No draught", "Hang it near a window or above a radiator (never above a candle)."]],
+  securite: ["Pointed scissors and the needle stay with the grown-up.", "Never hang paper above a candle or a very hot lamp."]
+}
+});
+Object.assign(TRAD.de, {
+"fantomes-spirale": {
+  titre: "Spiralgespenster zum Aufhängen",
+  accroche: "Ein Papierkreis, spiralförmig ausgeschnitten, in der Mitte ein Gespensterkopf: Aufgehängt entrollt er sich zu einem langen Schweif, der sich beim kleinsten Luftzug dreht.",
+  age: "ab 5 Jahren; der Erwachsene hilft bei der Spirale",
+  materiel: [["Dickes weißes Papier oder dünner Karton", "DIN A4: ein Gespenst pro Blatt. Zu dünnes Papier hängt nur schlaff herunter, statt sich zu drehen."], ["Ein Teller oder eine große Schüssel (etwa 20 cm)", "Zum Aufzeichnen des Kreises."], ["Ein Bleistift, ein Radiergummi und eine Schere", ""], ["Ein schwarzer Filzstift", "Für Augen und Mund."], ["Weißer Faden oder Angelschnur", "Zum Aufhängen."], ["Klebeband oder eine Nadel, für den Erwachsenen", "Zum Befestigen des Fadens."]],
+  seances: [{ titre: "Aufzeichnen und ausschneiden", etapes: ["Mit dem Teller einen großen Kreis auf das Blatt zeichnen.", "In die Mitte des Kreises einen kleinen Gespensterkopf von etwa 6 cm malen, mit zwei erhobenen Armen.", "Vom Rand des Kreises aus eine Spirale nach innen bis zum Kopf zeichnen und dabei einen etwa 2 cm breiten Streifen lassen.", "Den Kreis ausschneiden, dann mit der Schere Runde um Runde der Spirale bis zum Gespenst folgen: Bei den engen Kurven hilft der Erwachsene.", "Den Umriss von Kopf und Armen ausschneiden, ohne den daran hängenden Streifen abzuschneiden."] }, { titre: "Verzieren und aufhängen", etapes: ["Mit dem schwarzen Filzstift zwei ovale Augen und einen runden O-Mund auf den Kopf malen.", "Bleistiftstriche, die noch zu sehen sind, wegradieren.", "Der Erwachsene befestigt einen Faden oben am Kopf, mit einem kleinen Stück Klebeband auf der Rückseite oder einem Nadelstich.", "Das Gespenst an die Decke oder ans Fenster hängen: Die Spirale entrollt sich zu einem langen Schweif.", "Mehrere in unterschiedlicher Höhe aufhängen: Alle drehen sich beim kleinsten Luftzug."] }],
+  science: "Wusstest du schon? Die Spirale dreht sich, weil warme Luft aufsteigt: In der Nähe einer Heizung oder Lampe drückt die aufsteigende Luft gegen den schrägen Streifen und bringt das Gespenst zum Drehen, wie einen kleinen Propeller.",
+  variante: "Mit derselben Technik gelingt auch eine Schlange (Schlangenkopf in der Mitte, Streifen mit Schuppen), eine schwarze Fledermaus oder ein Drache. Mit Transparentpapier werden die Gespenster vor dem Fenster durchscheinend.",
+  depannage: [["Das Gespenst reißt am Hals ab", "Streifen am Kopf zu schmal", "Den Streifen am Kopfansatz breiter lassen oder hinten mit einem Stück Klebeband verstärken."], ["Die Spirale entrollt sich nicht richtig", "Papier zu dick oder Windungen zu eng", "Etwas dünneres Papier, breitere Windungen."], ["Es dreht sich nicht", "Kein Luftzug", "In die Nähe eines Fensters oder über eine Heizung hängen (niemals über eine Kerze)."]],
+  securite: ["Spitze Scheren und die Nadel bleiben beim Erwachsenen.", "Niemals Papier über einer Kerze oder einer sehr heißen Lampe aufhängen."]
+}
+});
+Object.assign(TRAD.it, {
+"fantomes-spirale": {
+  titre: "Fantasmi a spirale da appendere",
+  accroche: "Un cerchio di carta tagliato a spirale, una testa di fantasma al centro: una volta appeso, si srotola in una lunga coda che gira al minimo spiffero.",
+  age: "dai 5 anni; l'adulto aiuta con la spirale",
+  materiel: [["Carta bianca spessa o cartoncino sottile", "Formato A4: un fantasma per foglio. La carta troppo sottile penzola senza girare."], ["Un piatto o una ciotola grande (circa 20 cm)", "Per tracciare il cerchio."], ["Una matita, una gomma e delle forbici", ""], ["Un pennarello nero", "Per gli occhi e la bocca."], ["Filo bianco o filo da pesca", "Per appenderlo."], ["Nastro adesivo o un ago, per l'adulto", "Per fissare il filo."]],
+  seances: [{ titre: "Disegnare e ritagliare", etapes: ["Tracciate un grande cerchio sul foglio seguendo il bordo del piatto.", "Al centro del cerchio, disegnate una piccola testa di fantasma di circa 6 cm, con le due braccia alzate.", "Partendo dal bordo del cerchio, disegnate una spirale che gira verso l'interno fino alla testa, lasciando una striscia larga circa 2 cm.", "Ritagliate il cerchio, poi seguite la spirale con le forbici, giro dopo giro, fino al fantasma: l'adulto aiuta nelle curve strette.", "Ritagliate il contorno della testa e delle braccia, senza tagliare la striscia attaccata."] }, { titre: "Decorare e appendere", etapes: ["Con il pennarello nero disegnate sulla testa due occhi ovali e una bocca a O.", "Cancellate i segni di matita che si vedono ancora.", "L'adulto fissa un filo in cima alla testa, con un pezzetto di nastro adesivo sul retro o un punto d'ago.", "Appendete il fantasma al soffitto o a una finestra: la spirale si srotola in una lunga coda.", "Appendetene diversi ad altezze diverse: girano tutti al minimo spiffero."] }],
+  science: "Lo sapevi? La spirale gira perché l'aria calda sale: vicino a un termosifone o a una lampada, l'aria che sale spinge sulla striscia inclinata e fa girare il fantasma, come una piccola elica.",
+  variante: "Stessa tecnica per un serpente (testa di serpente al centro, striscia a squame), un pipistrello nero o un drago. Con la carta da lucido, i fantasmi diventano trasparenti davanti a una finestra.",
+  depannage: [["Il fantasma si rompe all'altezza del collo", "Striscia troppo sottile vicino alla testa", "Lasciare la striscia più larga dove parte dalla testa, oppure rinforzarla con un pezzetto di scotch sul retro."], ["La spirale non si srotola bene", "Carta troppo spessa o giri troppo stretti", "Carta un po' più sottile, giri più larghi."], ["Non gira", "Nessuno spiffero", "Appenderlo vicino a una finestra o sopra un termosifone (mai sopra una candela)."]],
+  securite: ["Le forbici appuntite e l'ago restano all'adulto.", "Non appendere mai carta sopra una candela o una lampada molto calda."]
+}
+});
+Object.assign(TRAD.es, {
+"fantomes-spirale": {
+  titre: "Fantasmas en espiral para colgar",
+  accroche: "Un círculo de papel recortado en espiral, una cabeza de fantasma en el centro: una vez colgado, se desenrolla en una larga cola que da vueltas con la más mínima corriente de aire.",
+  age: "a partir de 5 años; el adulto ayuda con la espiral",
+  materiel: [["Papel blanco grueso o cartulina fina", "Tamaño A4: un fantasma por hoja. El papel demasiado fino cuelga sin girar."], ["Un plato o un cuenco grande (unos 20 cm)", "Para trazar el círculo."], ["Un lápiz, una goma de borrar y unas tijeras", ""], ["Un rotulador negro", "Para los ojos y la boca."], ["Hilo blanco o sedal", "Para colgarlo."], ["Cinta adhesiva o una aguja, para el adulto", "Para sujetar el hilo."]],
+  seances: [{ titre: "Trazar y recortar", etapes: ["Trazad un círculo grande en la hoja siguiendo el borde del plato.", "En el centro del círculo, dibujad una cabecita de fantasma de unos 6 cm, con los dos brazos levantados.", "Empezando por el borde del círculo, dibujad una espiral que gire hacia dentro hasta la cabeza, dejando una tira de unos 2 cm de ancho.", "Recortad el círculo y luego seguid la espiral con las tijeras, vuelta a vuelta, hasta el fantasma: el adulto ayuda en las curvas cerradas.", "Recortad el contorno de la cabeza y los brazos, sin cortar la tira que va unida a ellos."] }, { titre: "Decorar y colgar", etapes: ["Con el rotulador negro, dibujad en la cabeza dos ojos ovalados y una boca en forma de O.", "Borrad las líneas de lápiz que todavía se vean.", "El adulto sujeta un hilo en lo alto de la cabeza, con un trocito de cinta adhesiva por detrás o una puntada de aguja.", "Colgad el fantasma del techo o de una ventana: la espiral se desenrolla en una larga cola.", "Colgad varios a distintas alturas: todos giran con la más mínima corriente de aire."] }],
+  science: "¿Sabías que…? La espiral gira porque el aire caliente sube: cerca de un radiador o de una lámpara, el aire que asciende empuja la tira inclinada y hace girar al fantasma, como una pequeña hélice.",
+  variante: "La misma técnica sirve para una serpiente (cabeza de serpiente en el centro, tira con escamas), un murciélago negro o un dragón. Con papel vegetal, los fantasmas se vuelven transparentes delante de una ventana.",
+  depannage: [["El fantasma se rompe por el cuello", "Tira demasiado fina junto a la cabeza", "Dejar la tira más ancha donde sale de la cabeza, o reforzarla con un trozo de celo por detrás."], ["La espiral no se desenrolla bien", "Papel demasiado grueso o vueltas demasiado cerradas", "Papel algo más fino, vueltas más anchas."], ["No gira", "No hay corriente de aire", "Colgarlo cerca de una ventana o encima de un radiador (nunca encima de una vela)."]],
+  securite: ["Las tijeras puntiagudas y la aguja se quedan con el adulto.", "No colgar nunca papel encima de una vela o de una lámpara muy caliente."]
 }
 });
 /* ---------- Langues : interface (français → anglais, allemand, italien, espagnol) ---------- */
