@@ -2741,6 +2741,59 @@ const ACTIVITIES = [
     sources: [
       ["Vidéo d'origine : radhikazart (Instagram)", "https://www.instagram.com/reel/DdPNVmjhfen/"]
     ]
+  },
+  {
+    id: "veilleuse-fantome",
+    nouveau: "2026-10-03",
+    titre: "Veilleuse fantôme en papier toilette",
+    accroche: "Un ballon, du papier toilette et de la colle : après séchage, on retire le ballon et il reste une boule légère qui s'illumine comme un fantôme quand on glisse une lumière LED dedans.",
+    saisons: ["Automne"],
+    categorie: "Bricolage",
+    couleur: "var(--sky)",
+    age: "Dès 4 ans, avec un adulte",
+    ageMin: 4,
+    faits: [["Préparation", "10 min"], ["Activité", "30 min"], ["Séchage", "24 à 48 h"], ["Coût", "Placards"]],
+    materiel: [
+      ["Un ballon de baudruche", "Gonflé à la taille d'un melon."],
+      ["Du papier toilette blanc", "Environ un demi-rouleau."],
+      ["Colle blanche vinylique", "Un demi-verre."],
+      ["Un demi-verre d'eau", "Pour diluer la colle."],
+      ["Un gros pinceau", ""],
+      ["Un bol et une protection pour la table", ""],
+      ["Peinture noire ou papier noir", "Pour le visage."],
+      ["Une bougie LED ou une petite guirlande LED à piles", "Jamais une vraie bougie."]
+    ],
+    sechage: [24, 48],
+    seances: [
+      { titre: "Séance 1 · habiller le ballon", etapes: [
+        "Gonflez le ballon, faites un nœud et posez-le, nœud en bas, sur un bol pour qu'il ne roule pas.",
+        "Mélangez la colle et l'eau à parts égales.",
+        "Déchirez le papier toilette en morceaux grands comme la main.",
+        "Peignez une zone du ballon avec la colle, posez un morceau de papier, puis repassez du pinceau par-dessus pour le lisser.",
+        "Recouvrez tout le ballon sauf un rond d'environ 8 cm autour du nœud : c'est l'ouverture pour la lumière.",
+        "Faites 3 ou 4 couches en tout : plus il y a de couches, plus la veilleuse est solide (et moins elle laisse passer la lumière).",
+        "Laissez sécher sur le bol, loin du chauffage, 24 à 48 h."
+      ]},
+      { titre: "Séance 2 · le visage et la lumière", etapes: [
+        "Quand la boule est dure et sèche, l'adulte perce le ballon près du nœud : il se dégonfle et se décolle.",
+        "Retirez le ballon par l'ouverture et égalisez le bord aux ciseaux.",
+        "Dessinez au crayon un visage de fantôme : deux grands yeux, une bouche ronde ou un sourire.",
+        "Peignez-le en noir, ou collez des formes découpées dans du papier noir, et laissez sécher.",
+        "Posez la boule sur la bougie LED allumée, éteignez la lumière… le fantôme brille !"
+      ]}
+    ],
+    science: "Le papier toilette est fait de fibres très fines. Avec la colle, elles se soudent entre elles et forment une coquille rigide, mais assez fine pour laisser passer la lumière, comme un abat-jour.",
+    variante: "Avec un peu de peinture orange, on obtient une citrouille lumineuse ; avec deux ballons de tailles différentes, toute une famille de fantômes. On peut aussi dessiner le visage de son personnage préféré.",
+    depannage: [
+      ["La boule s'écrase au démoulage", "Pas assez sèche ou pas assez de couches", "Attendre encore, ou ajouter une couche avant de percer."],
+      ["Le papier fait des bulles", "Trop de colle d'un coup", "Lisser chaque morceau au pinceau, en partant du centre."],
+      ["Le ballon s'est dégonflé pendant le séchage", "Chaleur ou nœud mal fait", "Sécher dans une pièce tempérée, refaire le nœud."],
+      ["La lumière ne traverse pas", "Trop de couches", "Une veilleuse plus fine la prochaine fois, ou une guirlande LED plus forte."]
+    ],
+    securite: ["Uniquement des lumières LED : une vraie flamme enflammerait le papier.", "Les morceaux de ballon éclaté sont dangereux pour les petits : l'adulte les ramasse aussitôt.", "La colle mouille : tablier et table protégée."],
+    sources: [
+      ["Vidéo d'origine : shellychicboutique (Instagram)", "https://www.instagram.com/reel/Ddi6zAtRo8d/"]
+    ]
   }
 ];
 
@@ -3282,6 +3335,12 @@ function spiralGhostSVG() {
 }
 Object.assign(ART, { "fantomes-spirale": spiralGhostSVG });
 Object.assign(META, { "fantomes-spirale": { niveau: 2, skills: ["Découper", "Précision", "Sciences : air chaud"] } });
+/* ---------- Illustration : veilleuse fantôme (dessin original) ---------- */
+function ghostLampSVG() {
+  return svgWrap("Boule blanche en papier toilette éclairée de l'intérieur, avec un visage de fantôme", `<rect x="10" y="10" width="180" height="180" rx="14" fill="#1E1B33"/><ellipse cx="100" cy="168" rx="70" ry="10" fill="#FFE27A" opacity=".25"/><circle cx="100" cy="98" r="66" fill="#FFF8E6" stroke="#E8DCC0" stroke-width="3"/><circle cx="100" cy="98" r="66" fill="#FFE27A" opacity=".18"/><path d="M48 80 q14 8 26 0 M126 80 q14 8 26 0 M56 120 q16 -6 30 4 M120 64 q16 4 26 -2 M62 52 q12 -6 24 0" fill="none" stroke="#E8DCC0" stroke-width="2"/><ellipse cx="78" cy="88" rx="12" ry="17" fill="${INK}"/><ellipse cx="122" cy="88" rx="12" ry="17" fill="${INK}"/><ellipse cx="100" cy="124" rx="11" ry="14" fill="${INK}"/><rect x="88" y="160" width="24" height="16" rx="3" fill="#fff" stroke="${INK}" stroke-width="2"/>`);
+}
+Object.assign(ART, { "veilleuse-fantome": ghostLampSVG });
+Object.assign(META, { "veilleuse-fantome": { niveau: 2, skills: ["Patience", "Toucher", "Lumière"] } });
 
 const meta = a => META[a.id] || { niveau: 1, skills: [] };
 const dots = n => `<span class="dots" aria-hidden="true">${"●".repeat(n)}${"○".repeat(3 - n)}</span>`;
@@ -3432,7 +3491,7 @@ const ICON = {
 const CATS = [["Toutes", () => true], ["Automne & Halloween", a => a.saisons.includes("Automne")], ["Noël & hiver", a => a.saisons.includes("Hiver")], ["Bricolage", a => ["Bricolage", "Modelage"].includes(a.categorie)], ["Sciences & nature", a => ["Jeu & sciences", "Nature"].includes(a.categorie)], ["Peinture & dessin", a => ["Peinture", "Dessin"].includes(a.categorie)], ["Pliage", a => a.categorie === "Pliage"], ["Cuisine & jeux", a => ["Cuisine", "Jeu"].includes(a.categorie)], ["Sans attente", a => !a.sechage], ["Tout-petits", a => a.ageMin <= 3]];
 /* ---------- Le moment de l'année : la page d'accueil suit le calendrier ----------
    Chaque période met en avant ses activités. Pour tester une autre date : ajouter ?date=2026-12-10 à l'adresse. */
-const HALLOWEEN_IDS = ["fantomes-spirale", "fantomes-fenetre", "main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
+const HALLOWEEN_IDS = ["veilleuse-fantome", "fantomes-spirale", "fantomes-fenetre", "main-zombie", "fantomes", "chauves-souris", "citrouille-assiette", "photophore", "toile-araignee", "squelette-cotons-tiges", "gouter-halloween", "bowling-momies", "chapeau-sorciere", "chat-noir-assiette", "chauve-souris-volante", "citrouille-ballon", "fantomes-lumineux", "fantome-assiette", "fantome-main", "fantome-coton", "maison-hantee", "fantome-sequins", "potion-chou-rouge"];
 const NOEL_IDS = ["calendrier-avent", "carte-pop-up", "flocons-papier", "pate-a-sel", "carte-a-gratter", "mangeoire"];
 const PAQUES_IDS = ["lapin-rouleau", "chocolats-paques", "coquetiers-lapins", "lapins-paillettes", "chasse-lapins-mousse", "guirlande-poules", "carottes-surprises", "carte-a-gratter"];
 const ETE_IDS = ["bracelets-bouteille", "bulles-geantes", "flotte-coule", "volcan", "eruptions-arc-en-ciel", "pate-a-patouille", "eau-qui-marche", "montgolfiere"];
@@ -5858,6 +5917,58 @@ Object.assign(TRAD.es, {
   variante: "La misma técnica sirve para una serpiente (cabeza de serpiente en el centro, tira con escamas), un murciélago negro o un dragón. Con papel vegetal, los fantasmas se vuelven transparentes delante de una ventana.",
   depannage: [["El fantasma se rompe por el cuello", "Tira demasiado fina junto a la cabeza", "Dejar la tira más ancha donde sale de la cabeza, o reforzarla con un trozo de celo por detrás."], ["La espiral no se desenrolla bien", "Papel demasiado grueso o vueltas demasiado cerradas", "Papel algo más fino, vueltas más anchas."], ["No gira", "No hay corriente de aire", "Colgarlo cerca de una ventana o encima de un radiador (nunca encima de una vela)."]],
   securite: ["Las tijeras puntiagudas y la aguja se quedan con el adulto.", "No colgar nunca papel encima de una vela o de una lámpara muy caliente."]
+}
+});
+Object.assign(TRAD.en, {
+"veilleuse-fantome": {
+  titre: "Toilet-paper ghost night light",
+  accroche: "A balloon, some toilet paper and glue: once it's dry, you pop out the balloon and you're left with a light little ball that glows like a ghost when you slip an LED light inside.",
+  age: "age 4+, with a grown-up",
+  materiel: [["A balloon", "Blown up to the size of a melon."], ["White toilet paper", "About half a roll."], ["White PVA glue", "Half a glass."], ["Half a glass of water", "To water down the glue."], ["A big paintbrush", ""], ["A bowl and something to cover the table", ""], ["Black paint or black paper", "For the face."], ["A battery LED candle or small battery LED fairy lights", "Never a real candle."]],
+  seances: [{ titre: "Session 1 · dress the balloon", etapes: ["Blow up the balloon, tie a knot and sit it on a bowl, knot side down, so it doesn't roll away.", "Mix the glue and water half and half.", "Tear the toilet paper into pieces about the size of your hand.", "Brush some glue onto a patch of the balloon, lay a piece of paper on it, then brush over it again to smooth it down.", "Cover the whole balloon except for a circle about 8 cm across around the knot: that's the opening for the light.", "Do 3 or 4 layers in all: the more layers, the sturdier the night light (and the less light it lets through).", "Leave it to dry on the bowl, away from the radiator, for 24 to 48 hours."] }, { titre: "Session 2 · the face and the light", etapes: ["When the ball is hard and dry, the grown-up pops the balloon near the knot: it goes down and comes away from the paper.", "Pull the balloon out through the opening and trim the edge neatly with scissors.", "Draw a ghost's face in pencil: two big eyes and a round mouth or a smile.", "Paint it black, or stick on shapes cut out of black paper, and leave it to dry.", "Set the ball over the lit LED candle, switch off the lights… and the ghost glows!"] }],
+  science: "Toilet paper is made of very fine fibres. With the glue, they stick together and form a stiff shell, but one thin enough to let light through, just like a lampshade.",
+  variante: "With a bit of orange paint, you get a glowing pumpkin; with two balloons of different sizes, a whole family of ghosts. You can also draw the face of your favourite character.",
+  depannage: [["The ball gets squashed when you take the balloon out", "Not dry enough or not enough layers", "Wait a bit longer, or add another layer before popping the balloon."], ["The paper goes bubbly", "Too much glue at once", "Smooth each piece down with the brush, working out from the middle."], ["The balloon went down while it was drying", "Too warm, or the knot wasn't tied properly", "Dry it in a room that isn't too warm, and tie the knot again."], ["The light doesn't shine through", "Too many layers", "A thinner night light next time, or brighter LED fairy lights."]],
+  securite: ["LED lights only: a real flame would set the paper alight.", "Bits of popped balloon are dangerous for little ones: the grown-up picks them up straight away.", "Glue is messy: wear an apron and cover the table."]
+}
+});
+Object.assign(TRAD.de, {
+"veilleuse-fantome": {
+  titre: "Gespenster-Nachtlicht aus Klopapier",
+  accroche: "Ein Luftballon, Klopapier und Kleber: Nach dem Trocknen holt man den Ballon heraus, und übrig bleibt eine leichte Kugel, die wie ein Gespenst leuchtet, wenn man ein LED-Licht hineinsteckt.",
+  age: "ab 4 Jahren, mit einem Erwachsenen",
+  materiel: [["Ein Luftballon", "So groß wie eine Melone aufgeblasen."], ["Weißes Klopapier", "Etwa eine halbe Rolle."], ["Weißer Bastelleim (Holzleim)", "Ein halbes Glas."], ["Ein halbes Glas Wasser", "Zum Verdünnen des Leims."], ["Ein dicker Pinsel", ""], ["Eine Schüssel und eine Tischunterlage", ""], ["Schwarze Farbe oder schwarzes Papier", "Für das Gesicht."], ["Eine LED-Kerze oder eine kleine LED-Lichterkette mit Batterie", "Niemals eine echte Kerze."]],
+  seances: [{ titre: "Teil 1 · den Ballon einkleiden", etapes: ["Den Ballon aufblasen, zuknoten und mit dem Knoten nach unten auf eine Schüssel setzen, damit er nicht wegrollt.", "Leim und Wasser zu gleichen Teilen mischen.", "Das Klopapier in handgroße Stücke reißen.", "Eine Stelle des Ballons mit Leim bestreichen, ein Stück Papier auflegen und mit dem Pinsel noch einmal darüberstreichen, um es zu glätten.", "Den ganzen Ballon bekleben, nur einen Kreis von etwa 8 cm rund um den Knoten frei lassen: Das ist die Öffnung für das Licht.", "Insgesamt 3 oder 4 Schichten auftragen: Je mehr Schichten, desto stabiler das Nachtlicht (und desto weniger Licht scheint durch).", "Auf der Schüssel, weit weg von der Heizung, 24 bis 48 Stunden trocknen lassen."] }, { titre: "Teil 2 · Gesicht und Licht", etapes: ["Wenn die Kugel hart und trocken ist, sticht der Erwachsene den Ballon am Knoten an: Er fällt in sich zusammen und löst sich vom Papier.", "Den Ballon durch die Öffnung herausziehen und den Rand mit der Schere gerade schneiden.", "Mit Bleistift ein Gespenstergesicht aufmalen: zwei große Augen, ein runder Mund oder ein Lächeln.", "Es schwarz ausmalen oder aus schwarzem Papier ausgeschnittene Formen aufkleben und trocknen lassen.", "Die Kugel über die eingeschaltete LED-Kerze stülpen, das Licht ausmachen … und das Gespenst leuchtet!"] }],
+  science: "Klopapier besteht aus ganz feinen Fasern. Mit dem Leim verkleben sie miteinander und bilden eine feste Schale, die aber dünn genug ist, um Licht durchzulassen, wie ein Lampenschirm.",
+  variante: "Mit etwas orangefarbener Farbe wird daraus ein leuchtender Kürbis; mit zwei unterschiedlich großen Ballons eine ganze Gespensterfamilie. Man kann auch das Gesicht seiner Lieblingsfigur aufmalen.",
+  depannage: [["Die Kugel wird beim Herauslösen zerdrückt", "Nicht trocken genug oder zu wenige Schichten", "Noch warten oder vor dem Anstechen eine weitere Schicht auftragen."], ["Das Papier wirft Blasen", "Zu viel Leim auf einmal", "Jedes Stück mit dem Pinsel glatt streichen, von der Mitte nach außen."], ["Der Ballon hat beim Trocknen Luft verloren", "Zu warm oder schlecht zugeknotet", "In einem nicht zu warmen Raum trocknen lassen und den Knoten neu machen."], ["Das Licht scheint nicht durch", "Zu viele Schichten", "Beim nächsten Mal ein dünneres Nachtlicht oder eine hellere LED-Lichterkette."]],
+  securite: ["Nur LED-Lichter: Eine echte Flamme würde das Papier in Brand setzen.", "Reste eines geplatzten Ballons sind für die Kleinen gefährlich: Der Erwachsene sammelt sie sofort auf.", "Leim macht nass: Schürze an und den Tisch abdecken."]
+}
+});
+Object.assign(TRAD.it, {
+"veilleuse-fantome": {
+  titre: "Lucina fantasma di carta igienica",
+  accroche: "Un palloncino, carta igienica e colla: una volta asciutto, si toglie il palloncino e resta una pallina leggera che si illumina come un fantasma quando ci infilate dentro una lucina LED.",
+  age: "dai 4 anni, con un adulto",
+  materiel: [["Un palloncino", "Gonfiato grande come un melone."], ["Carta igienica bianca", "Circa mezzo rotolo."], ["Colla vinilica bianca", "Mezzo bicchiere."], ["Mezzo bicchiere d'acqua", "Per diluire la colla."], ["Un pennello grosso", ""], ["Una ciotola e qualcosa per proteggere il tavolo", ""], ["Tempera nera o carta nera", "Per la faccia."], ["Una candela LED o una piccola catena di lucine LED a pile", "Mai una candela vera."]],
+  seances: [{ titre: "Prima parte · vestire il palloncino", etapes: ["Gonfiate il palloncino, fate un nodo e appoggiatelo su una ciotola, con il nodo in basso, così non rotola.", "Mescolate colla e acqua in parti uguali.", "Strappate la carta igienica in pezzi grandi come una mano.", "Spennellate di colla una zona del palloncino, appoggiateci un pezzo di carta, poi ripassate il pennello sopra per lisciarlo.", "Ricoprite tutto il palloncino tranne un cerchio di circa 8 cm intorno al nodo: è l'apertura per la luce.", "Fate 3 o 4 strati in tutto: più strati ci sono, più la lucina è robusta (e meno luce lascia passare).", "Lasciate asciugare sulla ciotola, lontano dal termosifone, per 24-48 ore."] }, { titre: "Seconda parte · la faccia e la luce", etapes: ["Quando la palla è dura e asciutta, l'adulto buca il palloncino vicino al nodo: si sgonfia e si stacca.", "Tirate fuori il palloncino dall'apertura e pareggiate il bordo con le forbici.", "Disegnate a matita una faccia da fantasma: due occhioni, una bocca rotonda o un sorriso.", "Dipingetela di nero, oppure incollate delle forme ritagliate nella carta nera, e lasciate asciugare.", "Appoggiate la palla sulla candela LED accesa, spegnete la luce… e il fantasma brilla!"] }],
+  science: "La carta igienica è fatta di fibre sottilissime. Con la colla si saldano tra loro e formano un guscio rigido, ma abbastanza sottile da lasciar passare la luce, proprio come un paralume.",
+  variante: "Con un po' di tempera arancione si ottiene una zucca luminosa; con due palloncini di misure diverse, un'intera famiglia di fantasmi. Si può anche disegnare la faccia del proprio personaggio preferito.",
+  depannage: [["La palla si schiaccia quando togliete il palloncino", "Non abbastanza asciutta o troppo pochi strati", "Aspettate ancora, oppure aggiungete uno strato prima di bucare."], ["La carta fa le bolle", "Troppa colla tutta insieme", "Lisciate ogni pezzo con il pennello, partendo dal centro."], ["Il palloncino si è sgonfiato mentre asciugava", "Troppo caldo o nodo fatto male", "Fate asciugare in una stanza non troppo calda e rifate il nodo."], ["La luce non passa", "Troppi strati", "La prossima volta una lucina più sottile, oppure una catena di lucine LED più forte."]],
+  securite: ["Solo luci LED: una fiamma vera incendierebbe la carta.", "I pezzi di palloncino scoppiato sono pericolosi per i più piccoli: l'adulto li raccoglie subito.", "La colla bagna: grembiule e tavolo protetto."]
+}
+});
+Object.assign(TRAD.es, {
+"veilleuse-fantome": {
+  titre: "Lamparita fantasma de papel higiénico",
+  accroche: "Un globo, papel higiénico y cola: cuando se seca, se saca el globo y queda una bola ligera que brilla como un fantasma al meterle dentro una lucecita LED.",
+  age: "a partir de 4 años, con un adulto",
+  materiel: [["Un globo", "Inflado del tamaño de un melón."], ["Papel higiénico blanco", "Más o menos medio rollo."], ["Cola blanca", "Medio vaso."], ["Medio vaso de agua", "Para diluir la cola."], ["Un pincel grueso", ""], ["Un cuenco y algo para proteger la mesa", ""], ["Pintura negra o papel negro", "Para la cara."], ["Una vela LED o una pequeña guirnalda LED de pilas", "Nunca una vela de verdad."]],
+  seances: [{ titre: "Sesión 1 · vestir el globo", etapes: ["Inflad el globo, haced un nudo y ponedlo sobre un cuenco, con el nudo hacia abajo, para que no ruede.", "Mezclad la cola y el agua a partes iguales.", "Rasgad el papel higiénico en trozos del tamaño de una mano.", "Pintad con cola una zona del globo, poned encima un trozo de papel y volved a pasar el pincel por encima para alisarlo.", "Cubrid todo el globo menos un círculo de unos 8 cm alrededor del nudo: es la abertura para la luz.", "Haced 3 o 4 capas en total: cuantas más capas, más resistente es la lamparita (y menos luz deja pasar).", "Dejad secar sobre el cuenco, lejos de la calefacción, de 24 a 48 horas."] }, { titre: "Sesión 2 · la cara y la luz", etapes: ["Cuando la bola esté dura y seca, el adulto pincha el globo cerca del nudo: se desinfla y se despega.", "Sacad el globo por la abertura y igualad el borde con las tijeras.", "Dibujad a lápiz una cara de fantasma: dos ojos grandes y una boca redonda o una sonrisa.", "Pintadla de negro, o pegad formas recortadas en papel negro, y dejad secar.", "Poned la bola sobre la vela LED encendida, apagad la luz… ¡y el fantasma brilla!"] }],
+  science: "El papel higiénico está hecho de fibras muy finas. Con la cola se pegan entre sí y forman una cáscara rígida, pero lo bastante fina para dejar pasar la luz, como una pantalla de lámpara.",
+  variante: "Con un poco de pintura naranja, sale una calabaza luminosa; con dos globos de distinto tamaño, toda una familia de fantasmas. También se puede dibujar la cara de tu personaje favorito.",
+  depannage: [["La bola se aplasta al sacar el globo", "No está bien seca o tiene pocas capas", "Esperar más, o añadir otra capa antes de pinchar."], ["El papel hace burbujas", "Demasiada cola de golpe", "Alisar cada trozo con el pincel, empezando por el centro."], ["El globo se ha desinflado mientras se secaba", "Calor o nudo mal hecho", "Secar en una habitación templada y volver a hacer el nudo."], ["La luz no atraviesa", "Demasiadas capas", "La próxima vez, una lamparita más fina o una guirnalda LED más potente."]],
+  securite: ["Solo luces LED: una llama de verdad prendería fuego al papel.", "Los trozos de globo reventado son peligrosos para los pequeños: el adulto los recoge enseguida.", "La cola moja: delantal y mesa protegida."]
 }
 });
 /* ---------- Langues : interface (français → anglais, allemand, italien, espagnol) ---------- */
